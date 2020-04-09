@@ -1,4 +1,6 @@
 # Covid-19 qrcode generator
+Web version from government : https://media.interieur.gouv.fr/deplacement-covid-19/  
+Codebase from government : https://github.com/LAB-MI/deplacement-covid-19
 
 
 ### Setup project
