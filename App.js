@@ -31,7 +31,7 @@ const useInput = initialState => {
             <TextInput style={styles.input}
                 name={name}
                 value={value}
-                onChange={onInputChange}
+                onChangeText={onInputChange}
                 type={type}
                 placeholder={placeholder}
             />
