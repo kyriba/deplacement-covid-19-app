@@ -3,6 +3,8 @@ Web version from government : https://media.interieur.gouv.fr/deplacement-covid-
 Codebase from government : https://github.com/LAB-MI/deplacement-covid-19
 
 
+If you have any question please check expo.io [documentation](https://docs.expo.io/versions/latest/)
+
 ### Setup project
 
 1. Install Node.js
@@ -18,3 +20,5 @@ Run `yarn ios` or `yarn android` or `yarn web`
 
 1. Run in project folder `expo build:android` or `expo build:ios`
 2. Log in your account in terminal
+
+More info [here](https://docs.expo.io/versions/latest/distribution/building-standalone-apps/)
