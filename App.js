@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Col, Row as EasyRow, Grid } from "react-native-easy-grid";
 
 import { Platform, StyleSheet, Text, View, TextInput, Button } from 'react-native';
 const instructions = Platform.select({
@@ -26,7 +27,7 @@ const useInput = initialState => {
 
     const input = (name, placeholder) => {
         return (
-          <Row>
+            <View style = {{ padding: 15 }}>
             <Text style={styles.inputLabel}>{name}</Text>
             <TextInput style={styles.input}
                 name={name}
@@ -35,7 +36,7 @@ const useInput = initialState => {
                 type={type}
                 placeholder={placeholder}
             />
-            </Row>
+            </View>
         );
     };
 
@@ -81,10 +82,8 @@ export default function App() {
 
     return (
     <View style={styles.container}>
-      <Row>
-      <Text style={styles.title1}>Remplissez en ligne votre attestation numérique :</Text>
-      <Text style={styles.title2}>Tous les champs sont obligatoires.</Text>
-      </Row>
+      <Text style={styles.headerTextBox}>Remplissez en ligne votre attestation numérique :</Text>
+      <Text style={styles.text}>Tous les champs sont obligatoires.</Text>
       {inputfirstName('Prénom', 'Jean')}
       {inputLastName('Nom', 'Dupont')}
       {inputBithDate('Date de naissance (au format jj/mm/aaaa)', '01/01/1970')}
@@ -97,21 +96,62 @@ export default function App() {
   );
 }
 
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     backgroundColor: '#F5FCFF',
+//   },
+//   title1: {},
+//   title2: {},
+//   inputLabel: {},
+//   input: {
+//     color: "red",
+//   },
+//   row: {
+//     display: "flex",
+//   }
+
+// });
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+     paddingTop: 100
   },
-  title1: {},
-  title2: {},
-  inputLabel: {},
   input: {
-    color: "red",
+     margin: 2,
+     height: 35,
+     borderColor: '#241e2f',
+     borderWidth: 1
   },
-  row: {
-    display: "flex",
-  }
+  submitButton: {
+     backgroundColor: '#241e2f',
+     padding: 0,
+     margin: 15,
+     height: 40,
+  },
+  submitButtonText:{
+     color: 'white'
+  },
+  headerTextBox:{
+    fontWeight: 'bold',
+    fontSize: 14,
+    width:500,
+    color: 'blue',
+    paddingTop:5,
+    paddingBottom:5,
+    paddingLeft:20,
+    paddingRight:20, 
+    borderRadius:10
+  },
 
-});
+  text:{
+    width:500,
+    paddingTop:5,
+    paddingBottom:5,
+    paddingLeft:20,
+    paddingRight:20, 
+    borderRadius:10
+  }
+})
