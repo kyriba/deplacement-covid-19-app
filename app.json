@@ -10,6 +10,10 @@
       "android",
       "web"
     ],
+    "android": {
+      "package": "com.yourcompany.yourappname",
+      "versionCode": 1
+    },
     "assetBundlePatterns": [
       "**/*"
     ]
