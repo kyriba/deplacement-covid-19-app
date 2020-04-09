@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Col, Row as EasyRow, Grid } from "react-native-easy-grid";
 
 import { Platform, StyleSheet, Text, View, TextInput, Button } from 'react-native';
 const instructions = Platform.select({
