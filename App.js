@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Platform, StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text, View, TextInput, Button } from 'react-native';
 const instructions = Platform.select({
   ios: `Press Cmd+R to reload,\nCmd+D or shake for dev menu`,
   android: `Double tap R on your keyboard to reload,\nShake or press menu button for dev menu`,
@@ -80,7 +80,7 @@ export default function App() {
     const [postCode, inputpostCode] = useInputField('text')
 
     return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.headerTextBox}>Remplissez en ligne votre attestation numérique :</Text>
       <Text style={styles.text}>Tous les champs sont obligatoires.</Text>
       {inputfirstName('Prénom', 'Jean')}
@@ -91,7 +91,7 @@ export default function App() {
       {inputCity('Ville', 'Paris')}
       {inputpostCode('Code Postal', '75001')}
       <Button onClick={handleGenerate()} title="Press Me" >Generate qrcode</Button>
-    </View>
+    </ScrollView>
   );
 }
 
