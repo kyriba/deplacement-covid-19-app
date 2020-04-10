@@ -1,16 +1,42 @@
 import * as React from 'react'
 
-import { Platform, StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+
 const instructions = Platform.select({
   ios: `Press Cmd+R to reload,\nCmd+D or shake for dev menu`,
   android: `Double tap R on your keyboard to reload,\nShake or press menu button for dev menu`,
 });
 
 
+const Example = () => {
+  const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
 
-const Row = ({children}) => {
-  return (<View>{children}</View>)
-}
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = date => {
+    console.warn("A date has been picked: ", date);
+    hideDatePicker();
+  };
+
+  return (
+    <View>
+      <Button title="Show Date Picker" onPress={showDatePicker} />
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="date"
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
+      />
+    </View>
+  );
+};
 
 const useInput = initialState => {
     const [value, setValue] = React.useState(initialState);
@@ -80,9 +106,10 @@ export default function App() {
     const [postCode, inputpostCode] = useInputField('text')
 
     return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.headerTextBox}>Remplissez en ligne votre attestation numérique :</Text>
       <Text style={styles.text}>Tous les champs sont obligatoires.</Text>
+      {Example()}
       {inputfirstName('Prénom', 'Jean')}
       {inputLastName('Nom', 'Dupont')}
       {inputBithDate('Date de naissance (au format jj/mm/aaaa)', '01/01/1970')}
@@ -91,7 +118,7 @@ export default function App() {
       {inputCity('Ville', 'Paris')}
       {inputpostCode('Code Postal', '75001')}
       <Button onClick={handleGenerate()} title="Press Me" >Generate qrcode</Button>
-    </View>
+    </ScrollView>
   );
 }
 
