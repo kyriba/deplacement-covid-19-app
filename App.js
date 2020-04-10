@@ -2,11 +2,45 @@ import * as React from 'react'
 
 import { Platform, ScrollView, StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import * as Localization from 'expo-localization';
+import i18n from 'i18n-js';
 
 const instructions = Platform.select({
   ios: `Press Cmd+R to reload,\nCmd+D or shake for dev menu`,
   android: `Double tap R on your keyboard to reload,\nShake or press menu button for dev menu`,
 });
+
+i18n.translations = {
+    en: {
+        firstName: 'First name',
+        lastName: 'Last name',
+        attestation: 'Fill in your digital certificate',
+        filds: 'All fields are mandatory',
+        birthday: 'Date of birth (in dd / mm / yyyy format)',
+        place: 'Lieu de naissance',
+        address: 'Address',
+        city: 'City',
+        postCode: 'Postal code',
+        submit: 'Press Me'
+
+    },
+    fr: {
+        firstName: 'Prénom',
+        lastName: 'Nom',
+        attestation: 'Remplissez en ligne votre attestation numérique',
+        filds: 'Tous les champs sont obligatoires',
+        birthday: 'Date de naissance (au format jj/mm/aaaa)',
+        place: 'Place of birth',
+        address: 'Adresse',
+        city: 'Ville',
+        postCode: 'Code Postal',
+        submit: 'Press Me'
+    },
+};
+
+// Set the locale once at the beginning of your app.
+i18n.locale = Localization.locale;
+i18n.fallbacks = true;
 
 
 const Example = () => {
@@ -47,7 +81,7 @@ const useInput = initialState => {
 
   const useInputField = type => {
     const initialState = '';
-    
+
     const [value, onInputChange, setValue] = useInput(initialState);
 
     const input = (name, placeholder) => {
@@ -106,40 +140,22 @@ export default function App() {
     const [postCode, inputpostCode] = useInputField('text')
 
     return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.headerTextBox}>Remplissez en ligne votre attestation numérique :</Text>
-      <Text style={styles.text}>Tous les champs sont obligatoires.</Text>
-      {Example()}
-      {inputfirstName('Prénom', 'Jean')}
-      {inputLastName('Nom', 'Dupont')}
-      {inputBithDate('Date de naissance (au format jj/mm/aaaa)', '01/01/1970')}
-      {inputBirthPlace('Lieu de naissance', 'Lyon')}
-      {inputAddress('Adresse', '999 avenue de france')}
-      {inputCity('Ville', 'Paris')}
-      {inputpostCode('Code Postal', '75001')}
-      <Button onClick={handleGenerate()} title="Press Me" >Generate qrcode</Button>
-    </ScrollView>
-  );
+        <ScrollView style={styles.container}>
+            <Text style={styles.headerTextBox}>{i18n.t('attestation')} :</Text>
+            <Text style={styles.text}>{i18n.t('filds')}.</Text>
+            {Example()}
+            {inputfirstName(i18n.t('firstName'), 'Jean')}
+            {inputLastName(i18n.t('lastName'), 'Dupont')}
+            {inputBithDate(i18n.t('birthday'), '01/01/1970')}
+            {inputBirthPlace(i18n.t('place'), 'Lyon')}
+            {inputAddress(i18n.t('address'), '999 avenue de france')}
+            {inputCity(i18n.t('city'), 'Paris')}
+            {inputpostCode(i18n.t('postCode'), '75001')}
+            <Button onClick={handleGenerate()} title={i18n.t('submit')}>Generate qrcode</Button>
+        </ScrollView>
+    );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     backgroundColor: '#F5FCFF',
-//   },
-//   title1: {},
-//   title2: {},
-//   inputLabel: {},
-//   input: {
-//     color: "red",
-//   },
-//   row: {
-//     display: "flex",
-//   }
-
-// });
 
 const styles = StyleSheet.create({
   container: {
@@ -168,7 +184,7 @@ const styles = StyleSheet.create({
     paddingTop:5,
     paddingBottom:5,
     paddingLeft:20,
-    paddingRight:20, 
+    paddingRight:20,
     borderRadius:10
   },
 
@@ -177,7 +193,7 @@ const styles = StyleSheet.create({
     paddingTop:5,
     paddingBottom:5,
     paddingLeft:20,
-    paddingRight:20, 
+    paddingRight:20,
     borderRadius:10
   }
 })
