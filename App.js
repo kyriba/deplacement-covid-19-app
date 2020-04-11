@@ -275,11 +275,12 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     text: {
-        width: 500,
         paddingTop: 1,
         paddingLeft: 20,
         paddingRight: 20,
-        borderRadius: 10
+        borderRadius: 10,
+        flexGrow: 1,
+        flex: 1,
     },
     scrollView: {
         marginHorizontal: 20,
