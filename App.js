@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import {Platform, ScrollView, SafeAreaView, StyleSheet, Text, View, TextInput, Button, CheckBox} from 'react-native';
+import {Platform, ScrollView, StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import { CheckBox } from 'react-native-elements'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as Localization from 'expo-localization';
 import i18n from 'i18n-js';
@@ -41,7 +42,6 @@ i18n.translations = {
     },
 };
 
-// Set the locale once at the beginning of your app.
 i18n.locale = Localization.locale;
 i18n.fallbacks = true;
 
@@ -150,7 +150,6 @@ export default function App() {
     }
 
     return (
-        // <SafeAreaView style={styles.container}>
         <ScrollView>
             <Text style={styles.headerText}>{i18n.t('attestation')} :</Text>
             <Text style={styles.text}>{i18n.t('filds')}.</Text>
@@ -164,14 +163,13 @@ export default function App() {
             {inputpostCode(i18n.t('postCode'), '75001')}
             <Text style={styles.text}>{i18n.t('reason')}.</Text>
             <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
+                checked={isSelected}
                 style={styles.checkbox}
+                onPress={() => setSelection(!isSelected)}
             />
             <Text style={styles.text}>{i18n.t('firstReason')}.</Text>
             <Button onPress={() => handleGenerate()} title={i18n.t('submit')}>Generate qrcode</Button>
         </ScrollView>
-        // </SafeAreaView>
     );
 }
 
@@ -183,7 +181,6 @@ const styles = StyleSheet.create({
         paddingBottom: 0
     },
     checkbox: {
-        flexDirection: "row",
         marginBottom: 20,
         width: 15,
         height: 15,
