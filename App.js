@@ -23,7 +23,17 @@ i18n.translations = {
         postCode: 'Postal code',
         submit: 'Press Me',
         reason: 'Choose the exit reason (s)',
-        firstReason: 'Travel between the home and the place of exercise of the professional activity, when they are essential for the exercise of activities which cannot be organized in the form of telework or professional trips which cannot be deferred.'
+        reason1: 'Travel between the home and the place of exercise of the professional activity, when they are ' +
+            'essential for the exercise of activities which cannot be organized in the form of telework or professional trips which cannot be deferred.',
+        reason2: 'Travel to purchase supplies necessary for professional activity and purchases of basic necessities in establishments whose activities remain authorized',
+        reason3: 'Consultations and care that cannot be provided remotely and that cannot be deferred; consultations and care of patients with a long-term condition.',
+        reason4: 'Travel for compelling family reasons, for assistance to vulnerable people or childcare.',
+        reason5: 'Brief trips, within the limit of one hour daily and within a maximum radius of one kilometer around the home, ' +
+            'linked either to the individual physical activity of the people, to the exclusion of any collective sporting ' +
+            'practice and any proximity to d \'other people, either walking with the only people in the same home, or the needs of pets.',
+        reason6: 'Judicial or administrative summons.',
+        reason7: 'Participation in missions of general interest at the request of the administrative authority.'
+
 
     },
     fr: {
@@ -38,7 +48,19 @@ i18n.translations = {
         postCode: 'Code Postal',
         submit: 'Press Me',
         reason: 'Choisissez le ou les motif(s) de sortie',
-        firsReason: 'Déplacements entre le domicile et le lieu d’exercice de l’activité professionnelle, lorsqu\'ils sont indispensables à l\'exercice d’activités ne pouvant être organisées sous forme de télétravail ou déplacements professionnels ne pouvant être différés.'
+        reason1: 'Déplacements entre le domicile et le lieu d’exercice de l’activité professionnelle, lorsqu\'ils sont ' +
+            'indispensables à l\'exercice d’activités ne pouvant être organisées sous forme de télétravail ou déplacements professionnels ne pouvant être différés.',
+        reason2: 'Déplacements pour effectuer des achats de fournitures nécessaires à l’activité professionnelle et des achats ' +
+            'de première nécessité dans des établissements dont les activités demeurent autorisées',
+        reason3: 'Consultations et soins ne pouvant être assurés à distance et ne pouvant être différés ; consultations et soins ' +
+            'des patients atteints d\'une affection de longue durée.',
+        reason4: 'Déplacements pour motif familial impérieux, pour l’assistance aux personnes vulnérables ou la garde d’enfants.',
+        reason5: 'Déplacements brefs, dans la limite d\'une heure quotidienne et dans un rayon maximal d\'un kilomètre autour ' +
+            'du domicile, liés soit à l\'activité physique individuelle des personnes, à l\'exclusion de toute pratique sportive ' +
+            'collective et de toute proximité avec d\'autres personnes, soit à la promenade avec les seules personnes ' +
+            'regroupées dans un même domicile, soit aux besoins des animaux de compagnie.',
+        reason6: 'Judicial or administrative summons.',
+        reason7: 'Participation à des missions d’intérêt général sur demande de l’autorité administrative.'
     },
 };
 
@@ -110,7 +132,14 @@ const useInputField = type => {
 }
 
 export default function App() {
-    const [isSelected, setSelection] = useState(false);
+    const [isSelected1, setSelection1] = useState(false);
+    const [isSelected2, setSelection2] = useState(false);
+    const [isSelected3, setSelection3] = useState(false);
+    const [isSelected4, setSelection4] = useState(false);
+    const [isSelected5, setSelection5] = useState(false);
+    const [isSelected6, setSelection6] = useState(false);
+    const [isSelected7, setSelection7] = useState(false);
+
     const handleClick = async () => {
         event.preventDefault()
 
@@ -163,11 +192,47 @@ export default function App() {
             {inputpostCode(i18n.t('postCode'), '75001')}
             <Text style={styles.text}>{i18n.t('reason')}.</Text>
             <CheckBox
-                checked={isSelected}
+                checked={isSelected1}
                 style={styles.checkbox}
-                onPress={() => setSelection(!isSelected)}
+                onPress={() => setSelection1(!isSelected1)}
             />
-            <Text style={styles.text}>{i18n.t('firstReason')}.</Text>
+            <Text style={styles.text}>{i18n.t('reason1')}.</Text>
+            <CheckBox
+                checked={isSelected2}
+                style={styles.checkbox}
+                onPress={() => setSelection2(!isSelected2)}
+            />
+            <Text style={styles.text}>{i18n.t('reason2')}.</Text>
+            <CheckBox
+                checked={isSelected3}
+                style={styles.checkbox}
+                onPress={() => setSelection3(!isSelected3)}
+            />
+            <Text style={styles.text}>{i18n.t('reason3')}.</Text>
+            <CheckBox
+                checked={isSelected4}
+                style={styles.checkbox}
+                onPress={() => setSelection4(!isSelected4)}
+            />
+            <Text style={styles.text}>{i18n.t('reason4')}.</Text>
+            <CheckBox
+                checked={isSelected5}
+                style={styles.checkbox}
+                onPress={() => setSelection5(!isSelected5)}
+            />
+            <Text style={styles.text}>{i18n.t('reason5')}.</Text>
+            <CheckBox
+                checked={isSelected6}
+                style={styles.checkbox}
+                onPress={() => setSelection6(!isSelected6)}
+            />
+            <Text style={styles.text}>{i18n.t('reason6')}.</Text>
+            <CheckBox
+                checked={isSelected7}
+                style={styles.checkbox}
+                onPress={() => setSelection7(!isSelected7)}
+            />
+            <Text style={styles.text}>{i18n.t('reason7')}.</Text>
             <Button onPress={() => handleGenerate()} title={i18n.t('submit')}>Generate qrcode</Button>
         </ScrollView>
     );
