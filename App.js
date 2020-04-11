@@ -1,13 +1,12 @@
-import * as React from 'react'
-
-import { Platform, ScrollView, StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import React, {useState} from "react";
+import {Platform, ScrollView, SafeAreaView, StyleSheet, Text, View, TextInput, Button, CheckBox} from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as Localization from 'expo-localization';
 import i18n from 'i18n-js';
 
 const instructions = Platform.select({
-  ios: `Press Cmd+R to reload,\nCmd+D or shake for dev menu`,
-  android: `Double tap R on your keyboard to reload,\nShake or press menu button for dev menu`,
+    ios: `Press Cmd+R to reload,\nCmd+D or shake for dev menu`,
+    android: `Double tap R on your keyboard to reload,\nShake or press menu button for dev menu`,
 });
 
 i18n.translations = {
@@ -21,7 +20,9 @@ i18n.translations = {
         address: 'Address',
         city: 'City',
         postCode: 'Postal code',
-        submit: 'Press Me'
+        submit: 'Press Me',
+        reason: 'Choose the exit reason (s)',
+        firstReason: 'Travel between the home and the place of exercise of the professional activity, when they are essential for the exercise of activities which cannot be organized in the form of telework or professional trips which cannot be deferred.'
 
     },
     fr: {
@@ -34,7 +35,9 @@ i18n.translations = {
         address: 'Adresse',
         city: 'Ville',
         postCode: 'Code Postal',
-        submit: 'Press Me'
+        submit: 'Press Me',
+        reason: 'Choisissez le ou les motif(s) de sortie',
+        firsReason: 'Déplacements entre le domicile et le lieu d’exercice de l’activité professionnelle, lorsqu\'ils sont indispensables à l\'exercice d’activités ne pouvant être organisées sous forme de télétravail ou déplacements professionnels ne pouvant être différés.'
     },
 };
 
@@ -44,57 +47,55 @@ i18n.fallbacks = true;
 
 
 const Example = () => {
-  const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
+    const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
 
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
 
-  const handleConfirm = date => {
-    console.warn("A date has been picked: ", date);
-    hideDatePicker();
-  };
+    const handleConfirm = date => {
+        console.warn("A date has been picked: ", date);
+        hideDatePicker();
+    };
 
-  return (
-    <View>
-      <Button title="Show Date Picker" onPress={showDatePicker} />
-      <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="date"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-      />
-    </View>
-  );
+    return (
+        <View>
+            <Button title="Show Date Picker" onPress={showDatePicker}/>
+            <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="date"
+                onConfirm={handleConfirm}
+                onCancel={hideDatePicker}
+            />
+        </View>
+    );
 };
 
 const useInput = initialState => {
-    const [value, setValue] = React.useState(initialState);
-    const onChange = e => setValue(e.target.value)
-    return[value, onChange, setValue]
+    const [value, onChangeText] = React.useState(initialState);
+    return [value, onChangeText]
 }
 
-
-  const useInputField = type => {
+const useInputField = type => {
     const initialState = '';
 
     const [value, onInputChange, setValue] = useInput(initialState);
 
     const input = (name, placeholder) => {
         return (
-            <View style = {{ padding: 15 }}>
-            <Text style={styles.inputLabel}>{name}</Text>
-            <TextInput style={styles.input}
-                name={name}
-                value={value}
-                onChangeText={onInputChange}
-                type={type}
-                placeholder={placeholder}
-            />
+            <View style={{padding: 15}}>
+                <Text style={styles.inputLabel}>{name}</Text>
+                <TextInput style={styles.input}
+                           name={name}
+                           value={value}
+                           onChangeText={onInputChange}
+                           type={type}
+                           placeholder={placeholder}
+                />
             </View>
         );
     };
@@ -109,27 +110,27 @@ const useInput = initialState => {
 }
 
 export default function App() {
-  const  handleClick = async () => {
-    event.preventDefault()
+    const [isSelected, setSelection] = useState(false);
+    const handleClick = async () => {
+        event.preventDefault()
 
-    saveProfile()
-    const reasons = getAndSaveReasons()
-    const pdfBlob = await generatePdf(getProfile(), reasons)
-    localStorage.clear()
-    downloadBlob(pdfBlob, 'attestation.pdf')
+        saveProfile()
+        const reasons = getAndSaveReasons()
+        const pdfBlob = await generatePdf(getProfile(), reasons)
+        localStorage.clear()
+        downloadBlob(pdfBlob, 'attestation.pdf')
 
-    snackbar.classList.remove('d-none')
-    setTimeout(() => snackbar.classList.add('show'), 100)
+        snackbar.classList.remove('d-none')
+        setTimeout(() => snackbar.classList.add('show'), 100)
 
-    setTimeout(function () {
-      snackbar.classList.remove('show')
-      setTimeout(() => snackbar.classList.add('d-none'), 500)
-    }, 6000)
-  }
-
-    const handleGenerate = () => {
-      console.log("Generate")
+        setTimeout(function () {
+            snackbar.classList.remove('show')
+            setTimeout(() => snackbar.classList.add('d-none'), 500)
+        }, 6000)
     }
+
+    var Datastore = require('react-native-local-mongodb'),
+        db = new Datastore({filename: 'asyncStorageKey', autoload: true});
 
     const [firstName, inputfirstName] = useInputField('text')
     const [lastName, inputLastName] = useInputField('text')
@@ -139,9 +140,19 @@ export default function App() {
     const [city, inputCity] = useInputField('text')
     const [postCode, inputpostCode] = useInputField('text')
 
+    const handleGenerate = () => {
+        console.log(firstName)
+        db.insert([{firstName: firstName}], function (err, newDocs) {
+        });
+
+        var docs = db.getAllData();
+        console.log("Hello " + docs[0].firstName)
+    }
+
     return (
-        <ScrollView style={styles.container}>
-            <Text style={styles.headerTextBox}>{i18n.t('attestation')} :</Text>
+        // <SafeAreaView style={styles.container}>
+        <ScrollView>
+            <Text style={styles.headerText}>{i18n.t('attestation')} :</Text>
             <Text style={styles.text}>{i18n.t('filds')}.</Text>
             {Example()}
             {inputfirstName(i18n.t('firstName'), 'Jean')}
@@ -151,49 +162,69 @@ export default function App() {
             {inputAddress(i18n.t('address'), '999 avenue de france')}
             {inputCity(i18n.t('city'), 'Paris')}
             {inputpostCode(i18n.t('postCode'), '75001')}
-            <Button onClick={handleGenerate()} title={i18n.t('submit')}>Generate qrcode</Button>
+            <Text style={styles.text}>{i18n.t('reason')}.</Text>
+            <CheckBox
+                value={isSelected}
+                onValueChange={setSelection}
+                style={styles.checkbox}
+            />
+            <Text style={styles.text}>{i18n.t('firstReason')}.</Text>
+            <Button onPress={() => handleGenerate()} title={i18n.t('submit')}>Generate qrcode</Button>
         </ScrollView>
+        // </SafeAreaView>
     );
 }
 
 
 const styles = StyleSheet.create({
-  container: {
-     paddingTop: 100
-  },
-  input: {
-     margin: 2,
-     height: 35,
-     borderColor: '#241e2f',
-     borderWidth: 1
-  },
-  submitButton: {
-     backgroundColor: '#241e2f',
-     padding: 0,
-     margin: 15,
-     height: 40,
-  },
-  submitButtonText:{
-     color: 'white'
-  },
-  headerTextBox:{
-    fontWeight: 'bold',
-    fontSize: 14,
-    width:500,
-    color: 'blue',
-    paddingTop:5,
-    paddingBottom:5,
-    paddingLeft:20,
-    paddingRight:20,
-    borderRadius:10
-  },
-
-  text:{
-    width:500,
-    paddingTop:5,
-    paddingBottom:5,
-    paddingLeft:20,
-    paddingRight:20,
-    borderRadius:10
-  }
+    container: {
+        paddingTop: 500,
+        flex: 1,
+        paddingBottom: 0
+    },
+    checkbox: {
+        flexDirection: "row",
+        marginBottom: 20,
+        width: 15,
+        height: 15,
+        borderColor: 'black',
+        margin: 15
+    },
+    input: {
+        margin: 2,
+        height: 35,
+        borderColor: '#241e2f',
+        borderWidth: 1
+    },
+    submitButton: {
+        backgroundColor: '#241e2f',
+        padding: 0,
+        margin: 15,
+        height: 40,
+    },
+    submitButtonText: {
+        color: 'white',
+        padding: 1
+    },
+    headerText: {
+        fontWeight: 'bold',
+        fontSize: 14,
+        width: 500,
+        color: 'blue',
+        paddingTop: 50,
+        paddingBottom: 5,
+        paddingLeft: 20,
+        paddingRight: 20,
+        borderRadius: 10
+    },
+    text: {
+        width: 500,
+        paddingTop: 1,
+        paddingLeft: 20,
+        paddingRight: 20,
+        borderRadius: 10
+    },
+    scrollView: {
+        marginHorizontal: 20,
+    },
 })
