@@ -17,7 +17,7 @@ i18n.translations = {
         attestation: 'Fill in your digital certificate',
         filds: 'All fields are mandatory',
         birthday: 'Date of birth (in dd / mm / yyyy format)',
-        place: 'Lieu de naissance',
+        place: 'Place of birth',
         address: 'Address',
         city: 'City',
         postCode: 'Postal code',
@@ -42,7 +42,7 @@ i18n.translations = {
         attestation: 'Remplissez en ligne votre attestation numérique',
         filds: 'Tous les champs sont obligatoires',
         birthday: 'Date de naissance (au format jj/mm/aaaa)',
-        place: 'Place of birth',
+        place: 'Lieu de naissance',
         address: 'Adresse',
         city: 'Ville',
         postCode: 'Code Postal',
@@ -171,11 +171,6 @@ export default function App() {
 
     const handleGenerate = () => {
         console.log(firstName)
-        db.insert([{firstName: firstName}], function (err, newDocs) {
-        });
-
-        var docs = db.getAllData();
-        console.log("Hello " + docs[0].firstName)
     }
 
     return (
