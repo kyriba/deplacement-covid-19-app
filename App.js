@@ -1,9 +1,12 @@
 import React, {useState} from "react";
 import {Platform, ScrollView, StyleSheet, Text, View, TextInput, Button} from 'react-native';
 import { CheckBox } from 'react-native-elements'
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as Localization from 'expo-localization';
 import i18n from 'i18n-js';
+
+import getAttestation from './src/certificateGenerator';
+
 
 const instructions = Platform.select({
     ios: `Press Cmd+R to reload,\nCmd+D or shake for dev menu`,
@@ -170,14 +173,33 @@ export default function App() {
     const [postCode, inputpostCode] = useInputField('text')
 
     const handleGenerate = () => {
-        console.log(firstName)
+
+      const profile = {
+        firstname: firstName,
+        lastname: lastName,
+        birthday: bithDate,
+        lieunaissance: birthPlace,
+        address: address,
+        zipcode: postCode,
+        town: city,
+        datesortie: '12-04-2020',
+        heuresortie: '13:00'
+      }
+
+      const reasons = ["courses"]
+
+      getAttestation(profile, reasons).then(() => {
+        console.log('DONE!')
+      }).catch((e) => {
+        console.log('ERROR!', e)
+      })
     }
 
     return (
         <ScrollView>
             <Text style={styles.headerText}>{i18n.t('attestation')} :</Text>
             <Text style={styles.text}>{i18n.t('filds')}.</Text>
-            {Example()}
+            {/* {Example()} */}
             {inputfirstName(i18n.t('firstName'), 'Jean')}
             {inputLastName(i18n.t('lastName'), 'Dupont')}
             {inputBithDate(i18n.t('birthday'), '01/01/1970')}
@@ -185,6 +207,10 @@ export default function App() {
             {inputAddress(i18n.t('address'), '999 avenue de france')}
             {inputCity(i18n.t('city'), 'Paris')}
             {inputpostCode(i18n.t('postCode'), '75001')}
+
+            <Button onPress={() => handleGenerate()} title={i18n.t('submit')}>Generate qrcode</Button>
+
+
             <Text style={styles.text}>{i18n.t('reason')}.</Text>
             <CheckBox
                 checked={isSelected1}
@@ -228,7 +254,6 @@ export default function App() {
                 onPress={() => setSelection7(!isSelected7)}
             />
             <Text style={styles.text}>{i18n.t('reason7')}.</Text>
-            <Button onPress={() => handleGenerate()} title={i18n.t('submit')}>Generate qrcode</Button>
         </ScrollView>
     );
 }
