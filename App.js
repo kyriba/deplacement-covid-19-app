@@ -197,7 +197,7 @@ export default function App() {
 
     return (
         <ScrollView>
-            <ElementText style={styles.headerText}>{i18n.t('attestation')} :</ElementText>
+            <ElementText style={styles.headerText}>{i18n.t('attestation')}:</ElementText>
             <ElementText style={styles.textMandatory}>{i18n.t('filds')}.</ElementText>
             {/* {Example()} */}
             {inputfirstName(i18n.t('firstName'), 'Jean')}
@@ -208,7 +208,7 @@ export default function App() {
             {inputCity(i18n.t('city'), 'Paris')}
             {inputpostCode(i18n.t('postCode'), '75001')}
 
-            <Text style={styles.text}>{i18n.t('reason')}.</Text>
+            <Text style={styles.headerText}>{i18n.t('reason')}.</Text>
             <CheckBox
                 checked={isSelected1}
                 style={styles.checkbox}
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontWeight: 'bold',
-        fontSize: 14,
+        fontSize: 16,
         paddingTop: 1,
         paddingBottom: 20,
         paddingLeft: 10,
