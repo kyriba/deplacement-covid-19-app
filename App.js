@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import {Platform, ScrollView, StyleSheet, Text, View, TextInput, Button} from 'react-native';
-import { CheckBox } from 'react-native-elements'
+import {Platform, ScrollView, StyleSheet, Text, View} from 'react-native';
+import { CheckBox, Input as TextInput, Text as ElementText, Button} from 'react-native-elements'
 // import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as Localization from 'expo-localization';
 import i18n from 'i18n-js';
@@ -113,7 +113,7 @@ const useInputField = type => {
     const input = (name, placeholder) => {
         return (
             <View style={{padding: 15}}>
-                <Text style={styles.inputLabel}>{name}</Text>
+                <Text style={styles.label}>{name}</Text>
                 <TextInput style={styles.input}
                            name={name}
                            value={value}
@@ -197,8 +197,8 @@ export default function App() {
 
     return (
         <ScrollView>
-            <Text style={styles.headerText}>{i18n.t('attestation')} :</Text>
-            <Text style={styles.text}>{i18n.t('filds')}.</Text>
+            <ElementText style={styles.headerText}>{i18n.t('attestation')} :</ElementText>
+            <ElementText style={styles.textMandatory}>{i18n.t('filds')}.</ElementText>
             {/* {Example()} */}
             {inputfirstName(i18n.t('firstName'), 'Jean')}
             {inputLastName(i18n.t('lastName'), 'Dupont')}
@@ -207,9 +207,6 @@ export default function App() {
             {inputAddress(i18n.t('address'), '999 avenue de france')}
             {inputCity(i18n.t('city'), 'Paris')}
             {inputpostCode(i18n.t('postCode'), '75001')}
-
-            <Button onPress={() => handleGenerate()} title={i18n.t('submit')}>Generate qrcode</Button>
-
 
             <Text style={styles.text}>{i18n.t('reason')}.</Text>
             <CheckBox
@@ -254,6 +251,8 @@ export default function App() {
                 onPress={() => setSelection7(!isSelected7)}
             />
             <Text style={styles.text}>{i18n.t('reason7')}.</Text>
+
+            <Button style={styles.submitButton} onPress={() => handleGenerate()} title={i18n.t('submit')}>Generate qrcode</Button>
         </ScrollView>
     );
 }
@@ -281,8 +280,7 @@ const styles = StyleSheet.create({
     submitButton: {
         backgroundColor: '#241e2f',
         padding: 0,
-        margin: 15,
-        height: 40,
+        margin: 30,
     },
     submitButtonText: {
         color: 'white',
@@ -290,18 +288,43 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontWeight: 'bold',
-        fontSize: 14,
+        fontSize: 22,
         width: 500,
         color: 'blue',
         paddingTop: 50,
-        paddingBottom: 5,
+        paddingBottom: 25,
         paddingLeft: 20,
         paddingRight: 20,
         borderRadius: 10
     },
-    text: {
+    textMandatory: {
+        fontWeight: 'bold',
+        fontSize: 20,
         paddingTop: 1,
+        paddingBottom: 20,
         paddingLeft: 20,
+        paddingRight: 20,
+        borderRadius: 10,
+        color: 'red',
+        flexGrow: 1,
+        flex: 1,
+    },
+    text: {
+        fontSize: 14,
+        paddingTop: 1,
+        paddingBottom: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
+        borderRadius: 10,
+        flexGrow: 1,
+        flex: 1,
+    },
+    label: {
+        fontWeight: 'bold',
+        fontSize: 14,
+        paddingTop: 1,
+        paddingBottom: 20,
+        paddingLeft: 10,
         paddingRight: 20,
         borderRadius: 10,
         flexGrow: 1,
