@@ -1,8 +1,9 @@
 import 'react-native-gesture-handler';
 
 import React, {useState, useEffect} from "react";
-import {ScrollView, StyleSheet, Text, View, TextInput, Button, ActivityIndicator} from 'react-native';
-import { CheckBox } from 'react-native-elements'
+import {ScrollView, StyleSheet, Text, View, ActivityIndicator} from 'react-native';
+import { CheckBox, Input as TextInput, Text as ElementText, Button} from 'react-native-elements'
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as Localization from 'expo-localization';
 import i18n from 'i18n-js';
 
@@ -115,7 +116,7 @@ const useInputField = type => {
     const input = (name, placeholder) => {
         return (
             <View style={{padding: 15}}>
-                <Text style={styles.inputLabel}>{name}</Text>
+                <Text style={styles.label}>{name}</Text>
                 <TextInput style={styles.input}
                            name={name}
                            value={value}
@@ -179,8 +180,8 @@ function Form({navigation}) {
 
     return (
         <ScrollView>
-            <Text style={styles.headerText}>{i18n.t('attestation')} :</Text>
-            <Text style={styles.text}>{i18n.t('filds')}.</Text>
+            <ElementText style={styles.headerText}>{i18n.t('attestation')}:</ElementText>
+            <ElementText style={styles.textMandatory}>{i18n.t('filds')}.</ElementText>
             {/* {Example()} */}
             {inputfirstName(i18n.t('firstName'), 'Jean')}
             {inputLastName(i18n.t('lastName'), 'Dupont')}
@@ -190,7 +191,8 @@ function Form({navigation}) {
             {inputCity(i18n.t('city'), 'Paris')}
             {inputpostCode(i18n.t('postCode'), '75001')}
 
-            <Text style={styles.text}>{i18n.t('reason')}.</Text>
+
+            <Text style={styles.headerText}>{i18n.t('reason')}.</Text>
             <CheckBox
                 checked={isSelected1}
                 style={styles.checkbox}
@@ -234,7 +236,8 @@ function Form({navigation}) {
             />
             <Text style={styles.text}>{i18n.t('reason7')}.</Text>
 
-            <Button onPress={() => handleGenerate()} title={i18n.t('submit')}>Generate qrcode</Button>
+
+            <Button style={styles.submitButton} onPress={() => handleGenerate()} title={i18n.t('submit')}>Generate qrcode</Button>
 
         </ScrollView>
     );
@@ -333,8 +336,7 @@ const styles = StyleSheet.create({
     submitButton: {
         backgroundColor: '#241e2f',
         padding: 0,
-        margin: 15,
-        height: 40,
+        margin: 30,
     },
     submitButtonText: {
         color: 'white',
@@ -342,18 +344,43 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontWeight: 'bold',
-        fontSize: 14,
+        fontSize: 22,
         width: 500,
         color: 'blue',
         paddingTop: 50,
-        paddingBottom: 5,
+        paddingBottom: 25,
         paddingLeft: 20,
         paddingRight: 20,
         borderRadius: 10
     },
-    text: {
+    textMandatory: {
+        fontWeight: 'bold',
+        fontSize: 20,
         paddingTop: 1,
+        paddingBottom: 20,
         paddingLeft: 20,
+        paddingRight: 20,
+        borderRadius: 10,
+        color: 'red',
+        flexGrow: 1,
+        flex: 1,
+    },
+    text: {
+        fontSize: 14,
+        paddingTop: 1,
+        paddingBottom: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
+        borderRadius: 10,
+        flexGrow: 1,
+        flex: 1,
+    },
+    label: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        paddingTop: 1,
+        paddingBottom: 20,
+        paddingLeft: 10,
         paddingRight: 20,
         borderRadius: 10,
         flexGrow: 1,
