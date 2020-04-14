@@ -41,7 +41,7 @@ export const useInputField = (type) => {
 export const useCheckbox = (label, addCheck, removeCheck) => {
   const [isSelected, setSelection] = useState(false);
   return (
-    <>
+    <View key={label}>
       <Text style={styles.text}>{i18n.t(label)}.</Text>
       <CheckBox
         checked={isSelected}
@@ -56,7 +56,7 @@ export const useCheckbox = (label, addCheck, removeCheck) => {
 
         }}
       />
-    </>
+    </View>
   );
 };
 
