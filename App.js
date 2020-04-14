@@ -1,24 +1,16 @@
-import "react-native-gesture-handler";
-
-import React from "react";
-import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
-import {
-  CheckBox,
-  Input as TextInput,
-  Text as ElementText,
-  Button,
-} from "react-native-elements";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 // import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as Localization from "expo-localization";
 import i18n from "i18n-js";
-
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
+import { View } from "react-native";
+import { Button } from "react-native-elements";
+import "react-native-gesture-handler";
+import CertificateView from "./src/components/CertificateView";
+import PersonalForm from "./src/components/PersonalForm";
 
 const Stack = createStackNavigator();
-
-import PersonalForm from "./src/components/PersonalForm";
-import CertificateView from "./src/components/CertificateView";
 
 i18n.translations = {
   en: {
@@ -48,7 +40,7 @@ i18n.translations = {
       "practice and any proximity to d 'other people, either walking with the only people in the same home, or the needs of pets.",
     judiciaire: "Judicial or administrative summons.",
     missions:
-      "Participation in missions of general interest at the request of the administrative authority.",
+      "Participation in missions of general interest at the request of the administrative authority."
   },
   fr: {
     firstName: "Prénom",
@@ -80,8 +72,8 @@ i18n.translations = {
       "regroupées dans un même domicile, soit aux besoins des animaux de compagnie.",
     judiciaire: "Judicial or administrative summons.",
     missions:
-      "Participation à des missions d’intérêt général sur demande de l’autorité administrative.",
-  },
+      "Participation à des missions d’intérêt général sur demande de l’autorité administrative."
+  }
 };
 
 i18n.locale = Localization.locale;
@@ -98,7 +90,7 @@ const Example = () => {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = (date) => {
+  const handleConfirm = date => {
     console.warn("A date has been picked: ", date);
     hideDatePicker();
   };

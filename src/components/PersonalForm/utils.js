@@ -1,16 +1,14 @@
-import React, { useState } from "react";
-import { CheckBox } from "react-native-elements";
 import i18n from "i18n-js";
+import React, { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { CheckBox, Input as TextInput } from "react-native-elements";
 
-import { View, Text, StyleSheet } from "react-native";
-import { Input as TextInput } from "react-native-elements";
-
-const useInput = (initialState) => {
+const useInput = initialState => {
   const [value, onChangeText] = React.useState(initialState);
   return [value, onChangeText];
 };
 
-export const useInputField = (type) => {
+export const useInputField = type => {
   const initialState = "";
 
   const [value, onInputChange, setValue] = useInput(initialState);
@@ -49,40 +47,36 @@ export const useCheckbox = (label, addCheck, removeCheck) => {
         onPress={() => {
           setSelection(!isSelected);
           if (!isSelected) {
-            addCheck(label)
+            addCheck(label);
           } else {
-            removeCheck(label)
+            removeCheck(label);
           }
-
         }}
       />
     </>
   );
 };
 
-
 export const useAllCheckboxes = () => {
   const [allChecked, setAllChecked] = useState([]);
 
-  const addCheck = (label) => {
+  const addCheck = label => {
     setAllChecked(allChecked.concat(label));
-  }
+  };
 
-  const removeCheck = (label) => {
-    setAllChecked(allChecked.filter((item) => item !== label));
-  }
+  const removeCheck = label => {
+    setAllChecked(allChecked.filter(item => item !== label));
+  };
 
-  return [allChecked, addCheck, removeCheck]
-
-
-}
+  return [allChecked, addCheck, removeCheck];
+};
 
 const styles = StyleSheet.create({
   input: {
     margin: 2,
     height: 35,
     borderColor: "#241e2f",
-    borderWidth: 1,
+    borderWidth: 1
   },
   label: {
     fontWeight: "bold",
@@ -93,7 +87,7 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     borderRadius: 10,
     flexGrow: 1,
-    flex: 1,
+    flex: 1
   },
   text: {
     fontSize: 14,
@@ -103,13 +97,13 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     borderRadius: 10,
     flexGrow: 1,
-    flex: 1,
+    flex: 1
   },
   checkbox: {
     marginBottom: 20,
     width: 15,
     height: 15,
     borderColor: "black",
-    margin: 15,
-  },
+    margin: 15
+  }
 });
