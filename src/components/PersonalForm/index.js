@@ -42,7 +42,6 @@ export default function PersonalForm({ navigation }) {
         {i18n.t("attestation")}:
       </ElementText>
       <ElementText style={styles.textMandatory}>{i18n.t("filds")}.</ElementText>
-      {/* {Example()} */}
       {inputfirstName(i18n.t("firstName"), "Jean")}
       {inputLastName(i18n.t("lastName"), "Dupont")}
       {inputBithDate(i18n.t("birthday"), "01/01/1970")}
