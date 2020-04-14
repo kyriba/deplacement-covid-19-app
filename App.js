@@ -1,17 +1,19 @@
-import React, {useState} from "react";
-import {Platform, ScrollView, StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import 'react-native-gesture-handler';
+
+import React, {useState, useEffect} from "react";
+import {ScrollView, StyleSheet, Text, View, TextInput, Button, ActivityIndicator} from 'react-native';
 import { CheckBox } from 'react-native-elements'
-// import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as Localization from 'expo-localization';
 import i18n from 'i18n-js';
 
-import getAttestation from './src/certificateGenerator';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
+const Stack = createStackNavigator();
 
-const instructions = Platform.select({
-    ios: `Press Cmd+R to reload,\nCmd+D or shake for dev menu`,
-    android: `Double tap R on your keyboard to reload,\nShake or press menu button for dev menu`,
-});
+import getAttestation, {getQrCodeData} from './src/certificateGenerator';
+import QRCodeInMemory from './src/qrcode'
+import PDFReader from 'rn-pdf-reader-js'
 
 i18n.translations = {
     en: {
@@ -24,7 +26,7 @@ i18n.translations = {
         address: 'Address',
         city: 'City',
         postCode: 'Postal code',
-        submit: 'Press Me',
+        submit: 'submit',
         reason: 'Choose the exit reason (s)',
         reason1: 'Travel between the home and the place of exercise of the professional activity, when they are ' +
             'essential for the exercise of activities which cannot be organized in the form of telework or professional trips which cannot be deferred.',
@@ -49,7 +51,7 @@ i18n.translations = {
         address: 'Adresse',
         city: 'Ville',
         postCode: 'Code Postal',
-        submit: 'Press Me',
+        submit: 'Loin',
         reason: 'Choisissez le ou les motif(s) de sortie',
         reason1: 'Déplacements entre le domicile et le lieu d’exercice de l’activité professionnelle, lorsqu\'ils sont ' +
             'indispensables à l\'exercice d’activités ne pouvant être organisées sous forme de télétravail ou déplacements professionnels ne pouvant être différés.',
@@ -134,7 +136,7 @@ const useInputField = type => {
 
 }
 
-export default function App() {
+function Form({navigation}) {
     const [isSelected1, setSelection1] = useState(false);
     const [isSelected2, setSelection2] = useState(false);
     const [isSelected3, setSelection3] = useState(false);
@@ -143,23 +145,6 @@ export default function App() {
     const [isSelected6, setSelection6] = useState(false);
     const [isSelected7, setSelection7] = useState(false);
 
-    const handleClick = async () => {
-        event.preventDefault()
-
-        saveProfile()
-        const reasons = getAndSaveReasons()
-        const pdfBlob = await generatePdf(getProfile(), reasons)
-        localStorage.clear()
-        downloadBlob(pdfBlob, 'attestation.pdf')
-
-        snackbar.classList.remove('d-none')
-        setTimeout(() => snackbar.classList.add('show'), 100)
-
-        setTimeout(function () {
-            snackbar.classList.remove('show')
-            setTimeout(() => snackbar.classList.add('d-none'), 500)
-        }, 6000)
-    }
 
     var Datastore = require('react-native-local-mongodb'),
         db = new Datastore({filename: 'asyncStorageKey', autoload: true});
@@ -188,11 +173,8 @@ export default function App() {
 
       const reasons = ["courses"]
 
-      getAttestation(profile, reasons).then(() => {
-        console.log('DONE!')
-      }).catch((e) => {
-        console.log('ERROR!', e)
-      })
+      navigation.navigate('Attestation', {profile: profile, reasons: reasons})
+
     }
 
     return (
@@ -207,9 +189,6 @@ export default function App() {
             {inputAddress(i18n.t('address'), '999 avenue de france')}
             {inputCity(i18n.t('city'), 'Paris')}
             {inputpostCode(i18n.t('postCode'), '75001')}
-
-            <Button onPress={() => handleGenerate()} title={i18n.t('submit')}>Generate qrcode</Button>
-
 
             <Text style={styles.text}>{i18n.t('reason')}.</Text>
             <CheckBox
@@ -254,9 +233,82 @@ export default function App() {
                 onPress={() => setSelection7(!isSelected7)}
             />
             <Text style={styles.text}>{i18n.t('reason7')}.</Text>
+
+            <Button onPress={() => handleGenerate()} title={i18n.t('submit')}>Generate qrcode</Button>
+
         </ScrollView>
     );
 }
+
+
+
+function PdfView({profile, reasons, qrCodeBase64}) {
+
+    const [pdfFile, setPdfFile] = useState('');
+
+
+    useEffect(() => {
+        getAttestation(profile, reasons, qrCodeBase64).then((pdfFile) => {
+        setPdfFile(pdfFile)
+      }).catch((err) => {
+          console.info(err)
+      })
+    }, [profile, reasons, qrCodeBase64])
+
+    const data = 'data:application/pdf;base64,' + pdfFile;
+
+    if (pdfFile !== '') { 
+    return (<PDFReader source={{base64: data}}/>)
+    } else {
+        return (
+            <View
+              style={{
+                ...StyleSheet.absoluteFillObject,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <ActivityIndicator size='large' />
+            </View>
+          )
+
+    }
+
+    }
+
+function AttestationView({ route }) {
+
+    const { profile, reasons } = route.params;
+
+    const qrCodeData = getQrCodeData(profile, reasons);
+    const [qrCodeBase64, setQrCodeBase64] = useState('');
+
+    return (
+        <>
+        {/* QRCodeInMemory is non visible rendering to draw QRCode */}
+        {qrCodeBase64 === '' && <QRCodeInMemory qrCodeData={qrCodeData} setQrCodeBase64={setQrCodeBase64}/>} 
+        <PdfView profile={profile} reasons={reasons} qrCodeBase64={qrCodeBase64}/>
+        </>
+        )
+};
+
+
+export default function App() {
+
+    return (
+        <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Form"
+            component={Form}
+            options={{title: 'Form'}}
+          />
+          <Stack.Screen name="Attestation" component={AttestationView} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    )
+}
+
 
 
 const styles = StyleSheet.create({
