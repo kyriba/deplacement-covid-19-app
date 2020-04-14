@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import QRCode from 'react-native-qrcode-svg';
 import {View, StyleSheet} from 'react-native';
 
-class QRCodeInMemory extends Component {
+class QRCodeInvisible extends Component {
   render() {
     return (
       <View style={styles.invisible}
@@ -20,7 +20,7 @@ class QRCodeInMemory extends Component {
   }
 }
 
-export default QRCodeInMemory;
+export default QRCodeInvisible;
 
 const styles = StyleSheet.create({
     invisible: {

@@ -1,5 +1,5 @@
 import { PDFDocument, StandardFonts } from 'pdf-lib'
-import certificateBase64 from './certificateBase64'
+import certificateTemplateBase64 from './certificateTemplateBase64'
 import base64 from 'react-native-base64';
 
 function base64ToArrayBuffer(base64In) {
@@ -76,7 +76,7 @@ export default async function getAttestation (profile, reasons, qrCodeBase64) {
   const releaseHours = String(heuresortie).substring(0, 2)
   const releaseMinutes = String(heuresortie).substring(3, 5)
 
-  const pdfTemplate = base64ToArrayBuffer(certificateBase64)
+  const pdfTemplate = base64ToArrayBuffer(certificateTemplateBase64)
 
   const pdfDoc = await PDFDocument.load(pdfTemplate)
   const page1 = pdfDoc.getPages()[0]
