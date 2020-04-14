@@ -52,6 +52,8 @@ export default function PersonalForm({ navigation }) {
       {inputAddress(i18n.t("address"), "999 avenue de france")}
       {inputCity(i18n.t("city"), "Paris")}
       {inputpostCode(i18n.t("postCode"), "75001")}
+
+      <Text style={styles.headerText}>{i18n.t("reason")}.</Text>
       {[
         "travail",
         "courses",
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 22,
     width: 500,
-    color: "black",
+    color: "blue",
     paddingTop: 50,
     paddingBottom: 25,
     paddingLeft: 20,

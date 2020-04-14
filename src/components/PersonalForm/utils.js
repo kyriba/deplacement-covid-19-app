@@ -42,7 +42,7 @@ export const useCheckbox = (label, addCheck, removeCheck) => {
   const [isSelected, setSelection] = useState(false);
   return (
     <>
-      <Text style={styles.headerText}>{i18n.t(label)}.</Text>
+      <Text style={styles.text}>{i18n.t(label)}.</Text>
       <CheckBox
         checked={isSelected}
         style={styles.checkbox}
@@ -95,16 +95,15 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flex: 1,
   },
-  headerText: {
-    fontWeight: "bold",
+  text: {
     fontSize: 14,
-    width: 500,
-    color: "black",
-    paddingTop: 50,
-    paddingBottom: 25,
+    paddingTop: 1,
+    paddingBottom: 20,
     paddingLeft: 20,
     paddingRight: 20,
     borderRadius: 10,
+    flexGrow: 1,
+    flex: 1,
   },
   checkbox: {
     marginBottom: 20,
