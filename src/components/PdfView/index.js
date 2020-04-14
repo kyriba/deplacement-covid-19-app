@@ -1,39 +1,37 @@
-import React, {useState, useEffect} from "react";
-import {StyleSheet, View, ActivityIndicator} from 'react-native';
-import PDFReader from 'rn-pdf-reader-js'
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
+import PDFReader from "rn-pdf-reader-js";
 
-import getAttestation from '../../lib/CertificateGenerator';
+import getAttestation from "../../lib/CertificateGenerator";
 
-export default function PdfView({profile, reasons, qrCodeBase64}) {
+export default function PdfView({ profile, reasons, qrCodeBase64 }) {
+  const [pdfFile, setPdfFile] = useState("");
 
-    const [pdfFile, setPdfFile] = useState('');
-
-
-    useEffect(() => {
-        getAttestation(profile, reasons, qrCodeBase64).then((pdfFile) => {
-        setPdfFile(pdfFile)
-      }).catch((err) => {
-          console.info(err)
+  useEffect(() => {
+    getAttestation(profile, reasons, qrCodeBase64)
+      .then((pdfFile) => {
+        setPdfFile(pdfFile);
       })
-    }, [profile, reasons, qrCodeBase64])
+      .catch((err) => {
+        console.info(err);
+      });
+  }, [profile, reasons, qrCodeBase64]);
 
-    const data = 'data:application/pdf;base64,' + pdfFile;
+  const data = "data:application/pdf;base64," + pdfFile;
 
-    if (pdfFile !== '') { 
-    return (<PDFReader source={{base64: data}}/>)
-    } else {
-        return (
-            <View
-              style={{
-                ...StyleSheet.absoluteFillObject,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <ActivityIndicator size='large' />
-            </View>
-          )
-
-    }
-
-    }
+  if (pdfFile !== "") {
+    return <PDFReader source={{ base64: data }} />;
+  } else {
+    return (
+      <View
+        style={{
+          ...StyleSheet.absoluteFillObject,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+}
