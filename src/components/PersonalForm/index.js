@@ -1,17 +1,10 @@
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
 import { CheckBox, Text as ElementText, Button } from "react-native-elements";
-import { useInputField } from "./utils";
+import { useInputField, useCheckbox, useAllCheckboxes } from "./utils";
 import i18n from "i18n-js";
 
 export default function PersonalForm({ navigation }) {
-  const [isSelected1, setSelection1] = useState(false);
-  const [isSelected2, setSelection2] = useState(false);
-  const [isSelected3, setSelection3] = useState(false);
-  const [isSelected4, setSelection4] = useState(false);
-  const [isSelected5, setSelection5] = useState(false);
-  const [isSelected6, setSelection6] = useState(false);
-  const [isSelected7, setSelection7] = useState(false);
 
   var Datastore = require("react-native-local-mongodb"),
     db = new Datastore({ filename: "asyncStorageKey", autoload: true });
@@ -23,6 +16,8 @@ export default function PersonalForm({ navigation }) {
   const [address, inputAddress] = useInputField("text");
   const [city, inputCity] = useInputField("text");
   const [postCode, inputpostCode] = useInputField("text");
+
+  const [allChecked, addCheck, removeCheck] = useAllCheckboxes();
 
   const handleGenerate = () => {
     const profile = {
@@ -37,11 +32,9 @@ export default function PersonalForm({ navigation }) {
       heuresortie: "13:00",
     };
 
-    const reasons = ["courses"];
-
     navigation.navigate("CertificateView", {
       profile: profile,
-      reasons: reasons,
+      reasons: allChecked,
     });
   };
 
@@ -59,50 +52,17 @@ export default function PersonalForm({ navigation }) {
       {inputAddress(i18n.t("address"), "999 avenue de france")}
       {inputCity(i18n.t("city"), "Paris")}
       {inputpostCode(i18n.t("postCode"), "75001")}
-
-      <Text style={styles.headerText}>{i18n.t("reason")}.</Text>
-      <CheckBox
-        checked={isSelected1}
-        style={styles.checkbox}
-        onPress={() => setSelection1(!isSelected1)}
-      />
-      <Text style={styles.text}>{i18n.t("reason1")}.</Text>
-      <CheckBox
-        checked={isSelected2}
-        style={styles.checkbox}
-        onPress={() => setSelection2(!isSelected2)}
-      />
-      <Text style={styles.text}>{i18n.t("reason2")}.</Text>
-      <CheckBox
-        checked={isSelected3}
-        style={styles.checkbox}
-        onPress={() => setSelection3(!isSelected3)}
-      />
-      <Text style={styles.text}>{i18n.t("reason3")}.</Text>
-      <CheckBox
-        checked={isSelected4}
-        style={styles.checkbox}
-        onPress={() => setSelection4(!isSelected4)}
-      />
-      <Text style={styles.text}>{i18n.t("reason4")}.</Text>
-      <CheckBox
-        checked={isSelected5}
-        style={styles.checkbox}
-        onPress={() => setSelection5(!isSelected5)}
-      />
-      <Text style={styles.text}>{i18n.t("reason5")}.</Text>
-      <CheckBox
-        checked={isSelected6}
-        style={styles.checkbox}
-        onPress={() => setSelection6(!isSelected6)}
-      />
-      <Text style={styles.text}>{i18n.t("reason6")}.</Text>
-      <CheckBox
-        checked={isSelected7}
-        style={styles.checkbox}
-        onPress={() => setSelection7(!isSelected7)}
-      />
-      <Text style={styles.text}>{i18n.t("reason7")}.</Text>
+      {[
+        "travail",
+        "courses",
+        "sante",
+        "famille",
+        "sport",
+        "judiciaire",
+        "missions",
+      ].map((label) => {
+        return useCheckbox(label, addCheck, removeCheck);
+      })}
 
       <Button
         style={styles.submitButton}
@@ -132,7 +92,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 22,
     width: 500,
-    color: "blue",
+    color: "black",
     paddingTop: 50,
     paddingBottom: 25,
     paddingLeft: 20,

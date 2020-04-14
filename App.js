@@ -33,21 +33,21 @@ i18n.translations = {
     postCode: "Postal code",
     submit: "submit",
     reason: "Choose the exit reason (s)",
-    reason1:
+    travail:
       "Travel between the home and the place of exercise of the professional activity, when they are " +
       "essential for the exercise of activities which cannot be organized in the form of telework or professional trips which cannot be deferred.",
-    reason2:
+    courses:
       "Travel to purchase supplies necessary for professional activity and purchases of basic necessities in establishments whose activities remain authorized",
-    reason3:
+    sante:
       "Consultations and care that cannot be provided remotely and that cannot be deferred; consultations and care of patients with a long-term condition.",
-    reason4:
+    famille:
       "Travel for compelling family reasons, for assistance to vulnerable people or childcare.",
-    reason5:
+    sport:
       "Brief trips, within the limit of one hour daily and within a maximum radius of one kilometer around the home, " +
       "linked either to the individual physical activity of the people, to the exclusion of any collective sporting " +
       "practice and any proximity to d 'other people, either walking with the only people in the same home, or the needs of pets.",
-    reason6: "Judicial or administrative summons.",
-    reason7:
+    judiciaire: "Judicial or administrative summons.",
+    missions:
       "Participation in missions of general interest at the request of the administrative authority.",
   },
   fr: {
@@ -62,24 +62,24 @@ i18n.translations = {
     postCode: "Code Postal",
     submit: "Loin",
     reason: "Choisissez le ou les motif(s) de sortie",
-    reason1:
+    travail:
       "Déplacements entre le domicile et le lieu d’exercice de l’activité professionnelle, lorsqu'ils sont " +
       "indispensables à l'exercice d’activités ne pouvant être organisées sous forme de télétravail ou déplacements professionnels ne pouvant être différés.",
-    reason2:
+    courses:
       "Déplacements pour effectuer des achats de fournitures nécessaires à l’activité professionnelle et des achats " +
       "de première nécessité dans des établissements dont les activités demeurent autorisées",
-    reason3:
+    sante:
       "Consultations et soins ne pouvant être assurés à distance et ne pouvant être différés ; consultations et soins " +
       "des patients atteints d'une affection de longue durée.",
-    reason4:
+    famille:
       "Déplacements pour motif familial impérieux, pour l’assistance aux personnes vulnérables ou la garde d’enfants.",
-    reason5:
+    sport:
       "Déplacements brefs, dans la limite d'une heure quotidienne et dans un rayon maximal d'un kilomètre autour " +
       "du domicile, liés soit à l'activité physique individuelle des personnes, à l'exclusion de toute pratique sportive " +
       "collective et de toute proximité avec d'autres personnes, soit à la promenade avec les seules personnes " +
       "regroupées dans un même domicile, soit aux besoins des animaux de compagnie.",
-    reason6: "Judicial or administrative summons.",
-    reason7:
+    judiciaire: "Judicial or administrative summons.",
+    missions:
       "Participation à des missions d’intérêt général sur demande de l’autorité administrative.",
   },
 };
