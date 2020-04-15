@@ -5,57 +5,93 @@ import { CheckBox, Input as TextInput } from "react-native-elements";
 
 import { MaskService } from "react-native-masked-text";
 
-export const useInputField = (type = "default", inputMask = "default") => {
-  const initialState = "";
-  const [value, onInputChange] = useState(initialState);
-  const [error, setError] = useState(initialState);
+const useRefsStore = () => {
+  const [refs, setRefs] = useState({});
 
-  let inputChangeWithMask = onInputChange;
-
-  switch (inputMask) {
-    case "datetime":
-      inputChangeWithMask = (e) => {
-        const maskedValue = MaskService.toMask("datetime", e, {
-          format: "DD/MM/YYYY",
-        });
-        onInputChange(maskedValue);
-      };
-      break;
-    case "postalcode":
-      inputChangeWithMask = (e) => {
-        const maskedValue = MaskService.toMask("custom", e, {
-          mask: "99999",
-        });
-        onInputChange(maskedValue);
-      };
-      break;
-    default:
-      inputChangeWithMask = onInputChange;
-  }
-
-  const input = (name, placeholder) => {
-    return (
-      <View style={{ padding: 15 }}>
-        <TextInput
-          label={name}
-          style={styles.input}
-          name={name}
-          value={value}
-          onChangeText={inputChangeWithMask}
-          placeholder={placeholder}
-          keyboardType={type}
-          errorMessage={error}
-          errorStyle={{ color: "red" }}
-          onSubmitEditing={(e) => {
-            if (value === initialState) {
-              setError("The field must be specified");
-            }
-          }}
-        />
-      </View>
-    );
+  const addRef = (name, ref) => {
+    if (refs[name] === undefined) {
+      setRefs({...refs, [name]: ref});
+      console.log(name)
+    }
   };
-  return [value, input];
+
+  return [refs, addRef];
+};
+
+export const useInputsFabric = () => {
+  const [inputRefs, addInputRef] = useRefsStore();
+
+  const useInputField = (nextField, fieldType = "default", inputMask = "default") => {
+    const initialState = "";
+    const [value, onInputChange] = useState(initialState);
+    const [error, setError] = useState(initialState);
+
+    let inputChangeWithMask = onInputChange;
+    let keyboardType = "default";
+    let returnKeyType = 'next'
+    let blurOnSubmit = false
+
+
+    switch (fieldType) {
+      case "datetime":
+        inputChangeWithMask = (e) => {
+          const maskedValue = MaskService.toMask("datetime", e, {
+            format: "DD/MM/YYYY",
+          });
+          onInputChange(maskedValue);
+        };
+        keyboardType = "number-pad"
+        returnKeyType = 'done'
+        break;
+      case "postalcode":
+        inputChangeWithMask = (e) => {
+          const maskedValue = MaskService.toMask("custom", e, {
+            mask: "99999",
+          });
+          onInputChange(maskedValue);
+        };
+        keyboardType = "number-pad"
+        returnKeyType = 'done'
+        blurOnSubmit = true
+        break;
+      default:
+        inputChangeWithMask = onInputChange;
+    }
+
+    const input = (name, placeholder) => {
+      return (
+        <View style={{ padding: 15 }}>
+          <TextInput
+            label={name}
+            style={styles.input}
+            name={name}
+            value={value}
+            blurOnSubmit={ blurOnSubmit }
+            onChangeText={inputChangeWithMask}
+            placeholder={placeholder}
+            returnKeyType={returnKeyType}
+            keyboardType={keyboardType}
+            onSubmitEditing={() => {
+              inputRefs[nextField].focus();
+            }}
+            ref={(input) => {
+              addInputRef(name, input);
+            }}
+            errorMessage={error}
+            errorStyle={{ color: "red" }}
+            // onSubmitEditing={(e) => {
+            //   if (value === initialState) {
+            //     setError("The field must be specified");
+            //   }
+            // }}
+          />
+        </View>
+      );
+    };
+    return [value, input];
+  };
+
+  return useInputField;
 };
 
 export const useCheckbox = (label, addCheck, removeCheck) => {

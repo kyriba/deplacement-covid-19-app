@@ -29,6 +29,7 @@
     "react-native-base64": "0.0.2",
     "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "^1.6.1",
+    "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-masked-text": "^1.13.0",
     "react-native-qrcode-svg": "^6.0.3",
     "react-native-reanimated": "^1.8.0",

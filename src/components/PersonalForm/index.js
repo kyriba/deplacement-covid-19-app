@@ -2,25 +2,27 @@ import i18n from "i18n-js";
 import React from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
 import { Button, Text as ElementText } from "react-native-elements";
-import { useAllCheckboxes, useCheckbox, useInputField } from "./utils";
+import { useAllCheckboxes, useCheckbox, useInputsFabric } from "./utils";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 export default function PersonalForm({ navigation }) {
+  const useInputField = useInputsFabric();
 
-  const [firstName, inputfirstName] = useInputField();
-  const [lastName, inputLastName] = useInputField();
-  const [bithDate, inputBithDate] = useInputField("number-pad", "datetime");
-  const [birthPlace, inputBirthPlace] = useInputField();
-  const [address, inputAddress] = useInputField();
-  const [city, inputCity] = useInputField();
-  const [postCode, inputpostCode] = useInputField("number-pad", "postalcode");
+  const [firstName, inputfirstName] = useInputField(i18n.t("lastName"));
+  const [lastName, inputLastName] = useInputField(i18n.t("birthday"));
+  const [bithDate, inputBithDate] = useInputField(i18n.t("place"), "datetime");
+  const [birthPlace, inputBirthPlace] = useInputField(i18n.t("address"));
+  const [address, inputAddress] = useInputField(i18n.t("city"));
+  const [city, inputCity] = useInputField(i18n.t("postCode"));
+  const [postCode, inputpostCode] = useInputField(i18n.t("postCode"), "postalcode");
 
   const [allChecked, addCheck, removeCheck] = useAllCheckboxes();
 
   const handleGenerate = () => {
-
     function pad(str) {
-        return String(str).padStart(2, "0");
-      }
+      return String(str).padStart(2, "0");
+    }
 
     const date = new Date();
     const profile = {
@@ -31,18 +33,20 @@ export default function PersonalForm({ navigation }) {
       address: address,
       zipcode: postCode,
       town: city,
-      datesortie: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`,
+      datesortie: `${date.getDate()}-${
+        date.getMonth() + 1
+      }-${date.getFullYear()}`,
       heuresortie: `${pad(date.getHours())}:${pad(date.getMinutes())}`,
     };
 
     navigation.navigate("CertificateView", {
       profile: profile,
-      reasons: allChecked
+      reasons: allChecked,
     });
   };
 
   return (
-    <ScrollView>
+    <KeyboardAwareScrollView enableResetScrollToCoords={false} enableOnAndroid={true}>
       <ElementText style={styles.headerText}>
         {i18n.t("attestation")}:
       </ElementText>
@@ -85,7 +89,7 @@ export default function PersonalForm({ navigation }) {
       >
         Generate qrcode
       </Button>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 }
 
@@ -95,12 +99,12 @@ const styles = StyleSheet.create({
     width: 15,
     height: 15,
     borderColor: "black",
-    margin: 15
+    margin: 15,
   },
   submitButton: {
     backgroundColor: "#241e2f",
     padding: 0,
-    margin: 30
+    margin: 30,
   },
   headerText: {
     fontWeight: "bold",
@@ -111,7 +115,7 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
     paddingLeft: 20,
     paddingRight: 20,
-    borderRadius: 10
+    borderRadius: 10,
   },
   textMandatory: {
     fontWeight: "bold",
@@ -123,7 +127,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     color: "red",
     flexGrow: 1,
-    flex: 1
+    flex: 1,
   },
   text: {
     fontSize: 14,
@@ -133,6 +137,6 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     borderRadius: 10,
     flexGrow: 1,
-    flex: 1
-  }
+    flex: 1,
+  },
 });
