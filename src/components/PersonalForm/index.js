@@ -2,55 +2,30 @@ import React from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
 import { Text as ElementText, Button } from "react-native-elements";
 import { useInputField, useCheckbox, useAllCheckboxes } from "./utils";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import i18n from "i18n-js";
 
-const Example = () => {
-    const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
-  
-    const showDatePicker = () => {
-      setDatePickerVisibility(true);
-    };
-  
-    const hideDatePicker = () => {
-      setDatePickerVisibility(false);
-    };
-  
-    const handleConfirm = (date) => {
-      console.warn("A date has been picked: ", date);
-      hideDatePicker();
-    };
-  
-    return (
-      <View>
-        <Button title="Show Date Picker" onPress={showDatePicker} />
-        <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="date"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
-        />
-      </View>
-    );
-  };
-  
 export default function PersonalForm({ navigation }) {
-
   var Datastore = require("react-native-local-mongodb"),
     db = new Datastore({ filename: "asyncStorageKey", autoload: true });
 
-  const [firstName, inputfirstName] = useInputField("text");
-  const [lastName, inputLastName] = useInputField("text");
-  const [bithDate, inputBithDate] = useInputField("date");
-  const [birthPlace, inputBirthPlace] = useInputField("text");
-  const [address, inputAddress] = useInputField("text");
-  const [city, inputCity] = useInputField("text");
-  const [postCode, inputpostCode] = useInputField("text");
+  const [firstName, inputfirstName] = useInputField();
+  const [lastName, inputLastName] = useInputField();
+  const [bithDate, inputBithDate] = useInputField("number-pad");
+  const [birthPlace, inputBirthPlace] = useInputField();
+  const [address, inputAddress] = useInputField();
+  const [city, inputCity] = useInputField();
+  const [postCode, inputpostCode] = useInputField("number-pad");
 
   const [allChecked, addCheck, removeCheck] = useAllCheckboxes();
 
   const handleGenerate = () => {
+
+    function pad(str) {
+        return String(str).padStart(2, "0");
+      }
+
+    const date = new Date();
     const profile = {
       firstname: firstName,
       lastname: lastName,
@@ -59,8 +34,8 @@ export default function PersonalForm({ navigation }) {
       address: address,
       zipcode: postCode,
       town: city,
-      datesortie: "12-04-2020",
-      heuresortie: "13:00",
+      datesortie: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`,
+      heuresortie: `${pad(date.getHours())}:${pad(date.getMinutes())}`,
     };
 
     navigation.navigate("CertificateView", {
@@ -75,7 +50,6 @@ export default function PersonalForm({ navigation }) {
         {i18n.t("attestation")}:
       </ElementText>
       <ElementText style={styles.textMandatory}>{i18n.t("filds")}.</ElementText>
-      {/* {Example()} */}
       {inputfirstName(i18n.t("firstName"), "Jean")}
       {inputLastName(i18n.t("lastName"), "Dupont")}
       {inputBithDate(i18n.t("birthday"), "01/01/1970")}
@@ -99,6 +73,16 @@ export default function PersonalForm({ navigation }) {
 
       <Button
         style={styles.submitButton}
+        disabled={
+          !firstName ||
+          !lastName ||
+          !bithDate ||
+          !birthPlace ||
+          !address ||
+          !city ||
+          !postCode ||
+          !allChecked.length
+        }
         onPress={() => handleGenerate()}
         title={i18n.t("submit")}
       >

@@ -86,7 +86,7 @@ export default function App() {
         <Stack.Screen
           name="PersonalForm"
           component={PersonalForm}
-          options={{ title: "Form" }}
+          options={{ title: "Form", headerShown: false }}
         />
         <Stack.Screen
           name="CertificateView"
