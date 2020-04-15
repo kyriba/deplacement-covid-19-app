@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Button, Icon } from "react-native-elements";
+import { Platform } from "react-native";
 
 import QRCodeInvisible from "../QRCodeInvisible";
 import PdfView from "../PdfView";
 
-import RNShareFile from 'react-native-share-pdf';
+import RNShareFile from "react-native-share-pdf";
 
 import { getQrCodeData } from "../../lib/CertificateGenerator";
 
@@ -14,24 +15,27 @@ export default function CertificateView({ route, navigation }) {
   const qrCodeData = getQrCodeData(profile, reasons);
   const [qrCodeBase64, setQrCodeBase64] = useState("");
 
-  const [pdf, setPdf] = useState("")
+  const [pdf, setPdf] = useState("");
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <Button
-          icon={<Icon name="share-apple" type='evilicon' color="#fff"/>}
-          onPress={() => {console.log("test")
-          RNShareFile.sharePDF(pdf, 'test').then(() => {
-            console.log('shared!')
-          })
-        
-        }
-        }
+          type="clear"
+          style={{ paddingRight:10}}
+          icon={
+            <Icon
+              name={Platform.OS === "ios" ? "share-apple" : "share-google"}
+              type="evilicon"
+              size='35'
+              color='#2089dc'
+            />
+          }
+          onPress={async () => await RNShareFile.sharePDF(pdf, "test")}
         />
       ),
     });
-  }, [navigation]);
+  }, [pdf, navigation]);
 
   return (
     <>

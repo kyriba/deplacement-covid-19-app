@@ -17,7 +17,9 @@ export default function PdfView({ profile, reasons, qrCodeBase64, setPdf }) {
   }, [profile, reasons, qrCodeBase64]);
 
   const data = "data:application/pdf;base64," + pdfFile;
-  setPdf(data);
+  console.log('SEtting PDF', data.length);
+  
+  setPdf(pdfFile);
 
   if (pdfFile !== "") {
     return <PDFReader source={{ base64: data }} />;
