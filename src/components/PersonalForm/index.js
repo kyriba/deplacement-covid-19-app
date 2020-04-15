@@ -5,8 +5,6 @@ import { Button, Text as ElementText } from "react-native-elements";
 import { useAllCheckboxes, useCheckbox, useInputField } from "./utils";
 
 export default function PersonalForm({ navigation }) {
-  var Datastore = require("react-native-local-mongodb"),
-    db = new Datastore({ filename: "asyncStorageKey", autoload: true });
 
   const [firstName, inputfirstName] = useInputField();
   const [lastName, inputLastName] = useInputField();
