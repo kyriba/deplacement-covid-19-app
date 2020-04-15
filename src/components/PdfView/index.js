@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, View, ActivityIndicator } from "react-native";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import PDFReader from "rn-pdf-reader-js";
-
 import getAttestation from "../../lib/CertificateGenerator";
 
 export default function PdfView({ profile, reasons, qrCodeBase64, setPdf }) {
@@ -9,10 +8,10 @@ export default function PdfView({ profile, reasons, qrCodeBase64, setPdf }) {
 
   useEffect(() => {
     getAttestation(profile, reasons, qrCodeBase64)
-      .then((pdfFile) => {
+      .then(pdfFile => {
         setPdfFile(pdfFile);
       })
-      .catch((err) => {
+      .catch(err => {
         console.info(err);
       });
   }, [profile, reasons, qrCodeBase64]);
@@ -28,7 +27,7 @@ export default function PdfView({ profile, reasons, qrCodeBase64, setPdf }) {
         style={{
           ...StyleSheet.absoluteFillObject,
           justifyContent: "center",
-          alignItems: "center",
+          alignItems: "center"
         }}
       >
         <ActivityIndicator size="large" />

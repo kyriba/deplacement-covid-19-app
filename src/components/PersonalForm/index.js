@@ -1,9 +1,8 @@
+import i18n from "i18n-js";
 import React from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
-import { Text as ElementText, Button } from "react-native-elements";
-import { useInputField, useCheckbox, useAllCheckboxes } from "./utils";
-
-import i18n from "i18n-js";
+import { Button, Text as ElementText } from "react-native-elements";
+import { useAllCheckboxes, useCheckbox, useInputField } from "./utils";
 
 export default function PersonalForm({ navigation }) {
   var Datastore = require("react-native-local-mongodb"),
@@ -40,7 +39,7 @@ export default function PersonalForm({ navigation }) {
 
     navigation.navigate("CertificateView", {
       profile: profile,
-      reasons: allChecked,
+      reasons: allChecked
     });
   };
 
@@ -66,8 +65,8 @@ export default function PersonalForm({ navigation }) {
         "famille",
         "sport",
         "judiciaire",
-        "missions",
-      ].map((label) => {
+        "missions"
+      ].map(label => {
         return useCheckbox(label, addCheck, removeCheck);
       })}
 
@@ -98,12 +97,12 @@ const styles = StyleSheet.create({
     width: 15,
     height: 15,
     borderColor: "black",
-    margin: 15,
+    margin: 15
   },
   submitButton: {
     backgroundColor: "#241e2f",
     padding: 0,
-    margin: 30,
+    margin: 30
   },
   headerText: {
     fontWeight: "bold",
@@ -114,7 +113,7 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
     paddingLeft: 20,
     paddingRight: 20,
-    borderRadius: 10,
+    borderRadius: 10
   },
   textMandatory: {
     fontWeight: "bold",
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     color: "red",
     flexGrow: 1,
-    flex: 1,
+    flex: 1
   },
   text: {
     fontSize: 14,
@@ -136,6 +135,6 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     borderRadius: 10,
     flexGrow: 1,
-    flex: 1,
-  },
+    flex: 1
+  }
 });
