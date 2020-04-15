@@ -3,10 +3,35 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { CheckBox, Input as TextInput } from "react-native-elements";
 
-export const useInputField = (type = "default") => {
+import { MaskService } from "react-native-masked-text";
+
+export const useInputField = (type = "default", inputMask = "default") => {
   const initialState = "";
   const [value, onInputChange] = useState(initialState);
   const [error, setError] = useState(initialState);
+
+  let inputChangeWithMask = onInputChange;
+
+  switch (inputMask) {
+    case "datetime":
+      inputChangeWithMask = (e) => {
+        const maskedValue = MaskService.toMask("datetime", e, {
+          format: "DD/MM/YYYY",
+        });
+        onInputChange(maskedValue);
+      };
+      break;
+    case "postalcode":
+      inputChangeWithMask = (e) => {
+        const maskedValue = MaskService.toMask("custom", e, {
+          mask: "99999",
+        });
+        onInputChange(maskedValue);
+      };
+      break;
+    default:
+      inputChangeWithMask = onInputChange;
+  }
 
   const input = (name, placeholder) => {
     return (
@@ -16,7 +41,7 @@ export const useInputField = (type = "default") => {
           style={styles.input}
           name={name}
           value={value}
-          onChangeText={onInputChange}
+          onChangeText={inputChangeWithMask}
           placeholder={placeholder}
           keyboardType={type}
           errorMessage={error}
@@ -57,7 +82,7 @@ export const useCheckbox = (label, addCheck, removeCheck) => {
 export const useAllCheckboxes = () => {
   const [allChecked, setAllChecked] = useState([]);
 
-  const addCheck = label => {
+  const addCheck = (label) => {
     setAllChecked(allChecked.concat(label));
   };
 
@@ -73,7 +98,7 @@ const styles = StyleSheet.create({
     margin: 2,
     height: 35,
     borderColor: "#241e2f",
-    borderWidth: 1
+    borderWidth: 1,
   },
   text: {
     fontSize: 14,
@@ -83,13 +108,13 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     borderRadius: 10,
     flexGrow: 1,
-    flex: 1
+    flex: 1,
   },
   checkbox: {
     marginBottom: 20,
     width: 15,
     height: 15,
     borderColor: "black",
-    margin: 15
-  }
+    margin: 15,
+  },
 });

@@ -10,11 +10,11 @@ export default function PersonalForm({ navigation }) {
 
   const [firstName, inputfirstName] = useInputField();
   const [lastName, inputLastName] = useInputField();
-  const [bithDate, inputBithDate] = useInputField("number-pad");
+  const [bithDate, inputBithDate] = useInputField("number-pad", "datetime");
   const [birthPlace, inputBirthPlace] = useInputField();
   const [address, inputAddress] = useInputField();
   const [city, inputCity] = useInputField();
-  const [postCode, inputpostCode] = useInputField("number-pad");
+  const [postCode, inputpostCode] = useInputField("number-pad", "postalcode");
 
   const [allChecked, addCheck, removeCheck] = useAllCheckboxes();
 
