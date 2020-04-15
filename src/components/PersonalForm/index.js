@@ -1,6 +1,6 @@
 import i18n from "i18n-js";
 import React from "react";
-import { ScrollView, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, StatusBar } from "react-native";
 import { Button, Text as ElementText } from "react-native-elements";
 import { useAllCheckboxes, useCheckbox, useInputsFabric } from "./utils";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -47,6 +47,7 @@ export default function PersonalForm({ navigation }) {
 
   return (
     <KeyboardAwareScrollView enableResetScrollToCoords={false} enableOnAndroid={true}>
+    <StatusBar  barStyle='dark-content' />
       <ElementText style={styles.headerText}>
         {i18n.t("attestation")}:
       </ElementText>
