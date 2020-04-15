@@ -1,4 +1,4 @@
-package com.covid.generated;
+package com.deplacement-covid-19.generated;
 
 import java.util.Arrays;
 import java.util.List;

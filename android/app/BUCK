@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.covid",
+    package = "com.deplacement-covid-19",
 )
 
 android_resource(
     name = "res",
-    package = "com.covid",
+    package = "com.deplacement-covid-19",
     res = "src/main/res",
 )
 

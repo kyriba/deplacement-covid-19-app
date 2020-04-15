@@ -1,9 +1,9 @@
 {
-  "name": "covid",
-  "displayName": "covid",
+  "name": "deplacement-covid-19",
+  "displayName": "deplacement-covid-19",
   "expo": {
-    "name": "covid",
-    "slug": "covid",
+    "name": "deplacement-covid-19",
+    "slug": "deplacement-covid-19",
     "version": "1.0.0",
     "platforms": [
       "ios",

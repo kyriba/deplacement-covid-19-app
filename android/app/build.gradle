@@ -131,7 +131,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.covid"
+        applicationId "com.deplacement-covid-19"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

@@ -1,5 +1,5 @@
-# Covid-19 Attestation Deplacement generator
-This is React Native based mobile application implemented based on the official [GÉNÉRATEUR D'ATTESTATION DE DÉPLACEMENT DÉROGATOIRE ](https://media.interieur.gouv.fr/deplacement-covid-19/)
+# COVID-19 French Attestation Deplacement generator
+This is React Native based mobile application implemented based on the official [GÉNÉRATEUR D'ATTESTATION DE DÉPLACEMENT DÉROGATOIRE ](https://media.interieur.gouv.fr/deplacement-deplacement-covid-19-19/)
 
 It generates the same PDF document with QR code embeded as the official generator.
 It does not persist your data or send it anywhere, nor any other inforation is gathered.
