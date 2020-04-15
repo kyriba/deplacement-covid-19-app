@@ -13,8 +13,12 @@ If you have any question please check expo.io [documentation](https://docs.expo.
 
 ### Run project in developer mode
 
-Run `yarn ios` or `yarn android` or `yarn web`
+#### Using OS Simulators (XCode, Android Studio)
+Run `yarn ios` or `yarn android`
 
+#### Using Expo apllication
+Download 'Expo' app and log in
+Run `expo start` and scan the appeared QR code
 
 ### Generate production build
 
