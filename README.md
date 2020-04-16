@@ -18,6 +18,7 @@ Codebase from government : https://github.com/LAB-MI/deplacement-covid-19
 1. Install Node.js
 2. `npm install expo-cli --global`
 3. Create account in [expo.io](expo.io)
+4. Install [yarn](https://classic.yarnpkg.com/en/docs/install) 
 
 ### Run project in developer mode
 
