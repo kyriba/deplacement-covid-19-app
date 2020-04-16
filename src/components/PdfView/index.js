@@ -1,3 +1,4 @@
+import 'react-native-get-random-values'
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import PDFReader from "rn-pdf-reader-js";

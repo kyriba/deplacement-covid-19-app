@@ -27,7 +27,7 @@ export default function CertificateView({ route, navigation }) {
             <Icon
               name={Platform.OS === "ios" ? "share-apple" : "share-google"}
               type="evilicon"
-              size="35"
+              size={35}
               color="#2089dc"
             />
           }
