@@ -35,7 +35,7 @@
     "react-native-reanimated": "^1.8.0",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.4.0",
-    "react-native-share-pdf": "0.0.4",
+    "react-native-share-pdf": "git+https://github.com/longgame/react-native-share-pdf.git#a90132dd1058ef1ab501ef4864ac14942adda3ac",
     "react-native-svg": "^12.1.0",
     "react-native-unimodules": "~0.9.0",
     "react-native-web": "~0.11.7",
