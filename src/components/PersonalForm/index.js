@@ -1,6 +1,6 @@
 import i18n from "i18n-js";
 import React from "react";
-import { StyleSheet, Text, StatusBar, Linking } from "react-native";
+import { StyleSheet, Text, StatusBar } from "react-native";
 import { Button, Text as ElementText } from "react-native-elements";
 import { useAllCheckboxes, useCheckbox, useInputsFabric } from "./utils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -57,12 +57,6 @@ export default function PersonalForm({ navigation }) {
         {i18n.t("attestation")}:
       </ElementText>
       <ElementText style={styles.textMandatory}>{i18n.t("filds")}.</ElementText>
-      <Text
-        style={{ color: "blue" }}
-        onPress={() => Linking.openURL("http://google.com")}
-      >
-        Google
-      </Text>
       {inputfirstName(i18n.t("firstName"), "Jean")}
       {inputLastName(i18n.t("lastName"), "Dupont")}
       {inputBithDate(i18n.t("birthday"), "01/01/1970")}
