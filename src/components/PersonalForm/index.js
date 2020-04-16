@@ -1,9 +1,17 @@
 import i18n from "i18n-js";
 import React from "react";
-import { StyleSheet, Text, StatusBar } from "react-native";
+import { StyleSheet, Text, StatusBar, View } from "react-native";
 import { Button, Text as ElementText } from "react-native-elements";
 import { useAllCheckboxes, useCheckbox, useInputsFabric } from "./utils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
+const HeaderText = ({ text, style }) => {
+  return (
+    <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+      <ElementText style={style}>{text}</ElementText>
+    </View>
+  );
+};
 
 export default function PersonalForm({ navigation }) {
   const useInputField = useInputsFabric();
@@ -53,10 +61,7 @@ export default function PersonalForm({ navigation }) {
       enableOnAndroid={true}
     >
       <StatusBar barStyle="dark-content" />
-      <ElementText style={styles.headerText}>
-        {i18n.t("attestation")}:
-      </ElementText>
-      <ElementText style={styles.textMandatory}>{i18n.t("filds")}.</ElementText>
+      <HeaderText text={i18n.t("attestation") + ":"} style={styles.headerText} />
       {inputfirstName(i18n.t("firstName"), "Jean")}
       {inputLastName(i18n.t("lastName"), "Dupont")}
       {inputBithDate(i18n.t("birthday"), "01/01/1970")}
@@ -65,7 +70,8 @@ export default function PersonalForm({ navigation }) {
       {inputCity(i18n.t("city"), "Paris")}
       {inputpostCode(i18n.t("postCode"), "75001")}
 
-      <Text style={styles.headerText}>{i18n.t("reason")}.</Text>
+      <HeaderText text={i18n.t("reason") + ':'} style={styles.selectReasonText}/>
+
       {[
         "travail",
         "courses",
@@ -100,13 +106,6 @@ export default function PersonalForm({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  checkbox: {
-    marginBottom: 20,
-    width: 15,
-    height: 15,
-    borderColor: "black",
-    margin: 15,
-  },
   submitButton: {
     backgroundColor: "#241e2f",
     padding: 0,
@@ -114,35 +113,24 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontWeight: "bold",
-    fontSize: 22,
-    width: 500,
-    color: "blue",
+    fontSize: 20,
+    color: "black",
     paddingTop: 50,
     paddingBottom: 25,
     paddingLeft: 20,
     paddingRight: 20,
     borderRadius: 10,
+    flexShrink: 1,
   },
-  textMandatory: {
+  selectReasonText: {
     fontWeight: "bold",
-    fontSize: 20,
-    paddingTop: 1,
+    fontSize: 16,
+    color: "black",
+    paddingTop: 20,
     paddingBottom: 20,
     paddingLeft: 20,
     paddingRight: 20,
     borderRadius: 10,
-    color: "red",
-    flexGrow: 1,
-    flex: 1,
-  },
-  text: {
-    fontSize: 14,
-    paddingTop: 1,
-    paddingBottom: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
-    borderRadius: 10,
-    flexGrow: 1,
-    flex: 1,
+    flexShrink: 1,
   },
 });

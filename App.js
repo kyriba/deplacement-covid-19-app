@@ -27,7 +27,7 @@ i18n.translations = {
       "Travel between the home and the place of exercise of the professional activity, when they are " +
       "essential for the exercise of activities which cannot be organized in the form of telework or professional trips which cannot be deferred.",
     courses:
-      "Travel to purchase supplies necessary for professional activity and purchases of basic necessities in establishments whose activities remain authorized",
+      "Travel to purchase supplies necessary for professional activity and purchases of basic necessities in establishments whose activities remain authorized.",
     sante:
       "Consultations and care that cannot be provided remotely and that cannot be deferred; consultations and care of patients with a long-term condition.",
     famille:
@@ -39,25 +39,27 @@ i18n.translations = {
     judiciaire: "Judicial or administrative summons.",
     missions:
       "Participation in missions of general interest at the request of the administrative authority.",
+    certificate: "Certificate",
+    form: "Form"
   },
   fr: {
     firstName: "Prénom",
     lastName: "Nom",
-    attestation: "Remplissez en ligne votre attestation numérique",
+    attestation: "Remplissez votre attestation numérique",
     filds: "Tous les champs sont obligatoires",
     birthday: "Date de naissance (au format jj/mm/aaaa)",
     place: "Lieu de naissance",
     address: "Adresse",
     city: "Ville",
     postCode: "Code Postal",
-    submit: "Loin",
+    submit: "loin",
     reason: "Choisissez le ou les motif(s) de sortie",
     travail:
       "Déplacements entre le domicile et le lieu d’exercice de l’activité professionnelle, lorsqu'ils sont " +
       "indispensables à l'exercice d’activités ne pouvant être organisées sous forme de télétravail ou déplacements professionnels ne pouvant être différés.",
     courses:
       "Déplacements pour effectuer des achats de fournitures nécessaires à l’activité professionnelle et des achats " +
-      "de première nécessité dans des établissements dont les activités demeurent autorisées",
+      "de première nécessité dans des établissements dont les activités demeurent autorisées.",
     sante:
       "Consultations et soins ne pouvant être assurés à distance et ne pouvant être différés ; consultations et soins " +
       "des patients atteints d'une affection de longue durée.",
@@ -71,6 +73,8 @@ i18n.translations = {
     judiciaire: "Judicial or administrative summons.",
     missions:
       "Participation à des missions d’intérêt général sur demande de l’autorité administrative.",
+    certificate: "Attestation",
+    form: "Forme"
   },
 };
 
@@ -84,12 +88,12 @@ export default function App() {
         <Stack.Screen
           name="PersonalForm"
           component={PersonalForm}
-          options={{ title: "Form", headerShown: false }}
+          options={{ title: i18n.t("form"), headerShown: false }}
         />
         <Stack.Screen
           name="CertificateView"
           component={CertificateView}
-          options={{ title: "Certificate" }}
+          options={{ title: i18n.t("certificate") }}
         />
       </Stack.Navigator>
     </NavigationContainer>

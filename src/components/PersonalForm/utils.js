@@ -1,6 +1,6 @@
 import i18n from "i18n-js";
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableWithoutFeedback } from "react-native";
 import { Card, CheckBox, Input as TextInput } from "react-native-elements";
 
 import { MaskService } from "react-native-masked-text";
@@ -93,25 +93,29 @@ export const useInputsFabric = () => {
 
 export const useCheckbox = (label, addCheck, removeCheck) => {
   const [isSelected, setSelection] = useState(false);
+  const handleSelection = () => {
+    setSelection(!isSelected);
+    if (!isSelected) {
+      addCheck(label);
+    } else {
+      removeCheck(label);
+    }
+  };
+
   return (
-    <Card key={`card-${label}`}>
-      <View key={label}>
-        <Text style={styles.text}>{i18n.t(label)}.</Text>
-        <CheckBox
-          checked={isSelected}
-          style={styles.checkbox}
-          key={`checkbox-${label}`}
-          onPress={() => {
-            setSelection(!isSelected);
-            if (!isSelected) {
-              addCheck(label);
-            } else {
-              removeCheck(label);
-            }
-          }}
-        />
-      </View>
-    </Card>
+    <TouchableWithoutFeedback key={`touch-${label}`} onPress={handleSelection} >
+      <Card key={`card-${label}`} containerStyle={{backgroundColor:'whitesmoke'}}>
+        <View key={`view-${label}`}>
+          <Text style={styles.text}>{i18n.t(label)}</Text>
+          <CheckBox
+            checked={isSelected}
+            style={styles.checkbox}
+            key={`checkbox-${label}`}
+            onPress={handleSelection}
+          />
+        </View>
+      </Card>
+    </TouchableWithoutFeedback>
   );
 };
 
