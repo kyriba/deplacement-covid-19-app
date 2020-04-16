@@ -94,12 +94,13 @@ export const useInputsFabric = () => {
 export const useCheckbox = (label, addCheck, removeCheck) => {
   const [isSelected, setSelection] = useState(false);
   return (
-    <Card>
+    <Card key={`card-${label}`}>
       <View key={label}>
         <Text style={styles.text}>{i18n.t(label)}.</Text>
         <CheckBox
           checked={isSelected}
           style={styles.checkbox}
+          key={`checkbox-${label}`}
           onPress={() => {
             setSelection(!isSelected);
             if (!isSelected) {

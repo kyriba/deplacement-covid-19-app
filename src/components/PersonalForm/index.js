@@ -80,16 +80,16 @@ export default function PersonalForm({ navigation }) {
 
       <Button
         style={styles.submitButton}
-        disabled={
-          !firstName ||
-          !lastName ||
-          !bithDate ||
-          !birthPlace ||
-          !address ||
-          !city ||
-          !postCode ||
-          !allChecked.length
-        }
+        // disabled={
+        //   !firstName ||
+        //   !lastName ||
+        //   !bithDate ||
+        //   !birthPlace ||
+        //   !address ||
+        //   !city ||
+        //   !postCode ||
+        //   !allChecked.length
+        // }
         onPress={() => handleGenerate()}
         title={i18n.t("submit")}
       >

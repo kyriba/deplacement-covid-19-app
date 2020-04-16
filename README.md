@@ -17,8 +17,11 @@ Codebase from government : https://github.com/LAB-MI/deplacement-covid-19
 
 1. Install Node.js
 2. `npm install expo-cli --global`
-3. Create account in [expo.io](expo.io)
-4. Install [yarn](https://classic.yarnpkg.com/en/docs/install) 
+3. Create account in [expo.io](https://expo.io)
+4. Install [yarn](https://classic.yarnpkg.com/en/docs/install)
+5. Install [Cocoapods](https://cocoapods.org/)
+6. `yarn install`
+7. `cd ios` & `pod install`
 
 ### Run project in developer mode
 
