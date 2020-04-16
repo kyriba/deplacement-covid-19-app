@@ -38,7 +38,7 @@ i18n.translations = {
       "practice and any proximity to d 'other people, either walking with the only people in the same home, or the needs of pets.",
     judiciaire: "Judicial or administrative summons.",
     missions:
-      "Participation in missions of general interest at the request of the administrative authority."
+      "Participation in missions of general interest at the request of the administrative authority.",
   },
   fr: {
     firstName: "Prénom",
@@ -70,8 +70,8 @@ i18n.translations = {
       "regroupées dans un même domicile, soit aux besoins des animaux de compagnie.",
     judiciaire: "Judicial or administrative summons.",
     missions:
-      "Participation à des missions d’intérêt général sur demande de l’autorité administrative."
-  }
+      "Participation à des missions d’intérêt général sur demande de l’autorité administrative.",
+  },
 };
 
 i18n.locale = Localization.locale;

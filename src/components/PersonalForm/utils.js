@@ -1,7 +1,7 @@
 import i18n from "i18n-js";
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { CheckBox, Input as TextInput } from "react-native-elements";
+import { Card, CheckBox, Input as TextInput } from "react-native-elements";
 
 import { MaskService } from "react-native-masked-text";
 
@@ -10,8 +10,7 @@ const useRefsStore = () => {
 
   const addRef = (name, ref) => {
     if (refs[name] === undefined) {
-      setRefs({...refs, [name]: ref});
-      console.log(name)
+      setRefs({ ...refs, [name]: ref });
     }
   };
 
@@ -21,16 +20,19 @@ const useRefsStore = () => {
 export const useInputsFabric = () => {
   const [inputRefs, addInputRef] = useRefsStore();
 
-  const useInputField = (nextField, fieldType = "default", inputMask = "default") => {
+  const useInputField = (
+    nextField,
+    fieldType = "default",
+    inputMask = "default"
+  ) => {
     const initialState = "";
     const [value, onInputChange] = useState(initialState);
     const [error, setError] = useState(initialState);
 
     let inputChangeWithMask = onInputChange;
     let keyboardType = "default";
-    let returnKeyType = 'next'
-    let blurOnSubmit = false
-
+    let returnKeyType = "next";
+    let blurOnSubmit = false;
 
     switch (fieldType) {
       case "datetime":
@@ -40,8 +42,8 @@ export const useInputsFabric = () => {
           });
           onInputChange(maskedValue);
         };
-        keyboardType = "number-pad"
-        returnKeyType = 'done'
+        keyboardType = "number-pad";
+        returnKeyType = "done";
         break;
       case "postalcode":
         inputChangeWithMask = (e) => {
@@ -50,9 +52,9 @@ export const useInputsFabric = () => {
           });
           onInputChange(maskedValue);
         };
-        keyboardType = "number-pad"
-        returnKeyType = 'done'
-        blurOnSubmit = true
+        keyboardType = "number-pad";
+        returnKeyType = "done";
+        blurOnSubmit = true;
         break;
       default:
         inputChangeWithMask = onInputChange;
@@ -66,7 +68,7 @@ export const useInputsFabric = () => {
             style={styles.input}
             name={name}
             value={value}
-            blurOnSubmit={ blurOnSubmit }
+            blurOnSubmit={blurOnSubmit}
             onChangeText={inputChangeWithMask}
             placeholder={placeholder}
             returnKeyType={returnKeyType}
@@ -79,11 +81,6 @@ export const useInputsFabric = () => {
             }}
             errorMessage={error}
             errorStyle={{ color: "red" }}
-            // onSubmitEditing={(e) => {
-            //   if (value === initialState) {
-            //     setError("The field must be specified");
-            //   }
-            // }}
           />
         </View>
       );
@@ -97,21 +94,23 @@ export const useInputsFabric = () => {
 export const useCheckbox = (label, addCheck, removeCheck) => {
   const [isSelected, setSelection] = useState(false);
   return (
-    <View key={label}>
-      <Text style={styles.text}>{i18n.t(label)}.</Text>
-      <CheckBox
-        checked={isSelected}
-        style={styles.checkbox}
-        onPress={() => {
-          setSelection(!isSelected);
-          if (!isSelected) {
-            addCheck(label);
-          } else {
-            removeCheck(label);
-          }
-        }}
-      />
-    </View>
+    <Card>
+      <View key={label}>
+        <Text style={styles.text}>{i18n.t(label)}.</Text>
+        <CheckBox
+          checked={isSelected}
+          style={styles.checkbox}
+          onPress={() => {
+            setSelection(!isSelected);
+            if (!isSelected) {
+              addCheck(label);
+            } else {
+              removeCheck(label);
+            }
+          }}
+        />
+      </View>
+    </Card>
   );
 };
 
@@ -138,8 +137,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    paddingTop: 1,
-    paddingBottom: 20,
+    paddingTop: 25,
     paddingLeft: 20,
     paddingRight: 20,
     borderRadius: 10,

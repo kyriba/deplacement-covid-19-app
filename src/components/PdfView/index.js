@@ -8,17 +8,17 @@ export default function PdfView({ profile, reasons, qrCodeBase64, setPdf }) {
 
   useEffect(() => {
     getAttestation(profile, reasons, qrCodeBase64)
-      .then(pdfFile => {
+      .then((pdfFile) => {
         setPdfFile(pdfFile);
       })
-      .catch(err => {
+      .catch((err) => {
         console.info(err);
       });
   }, [profile, reasons, qrCodeBase64]);
 
   const data = "data:application/pdf;base64," + pdfFile;
-  console.log('SEtting PDF', data.length);
-  
+  console.log("SEtting PDF", data.length);
+
   setPdf(pdfFile);
 
   if (pdfFile !== "") {
@@ -29,7 +29,7 @@ export default function PdfView({ profile, reasons, qrCodeBase64, setPdf }) {
         style={{
           ...StyleSheet.absoluteFillObject,
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
         <ActivityIndicator size="large" />

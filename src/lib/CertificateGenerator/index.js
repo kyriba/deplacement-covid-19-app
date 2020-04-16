@@ -54,7 +54,7 @@ export function getQrCodeData(profile, reasons) {
     zipcode,
     town,
     datesortie,
-    heuresortie
+    heuresortie,
   } = profile;
   const releaseHours = String(heuresortie).substring(0, 2);
   const releaseMinutes = String(heuresortie).substring(3, 5);
@@ -66,7 +66,7 @@ export function getQrCodeData(profile, reasons) {
     `Naissance: ${birthday} a ${lieunaissance}`,
     `Adresse: ${address} ${zipcode} ${town}`,
     `Sortie: ${datesortie} a ${releaseHours}h${releaseMinutes}`,
-    `Motifs: ${reasons}`
+    `Motifs: ${reasons}`,
   ].join("; ");
 }
 
@@ -88,7 +88,7 @@ export default async function getAttestation(profile, reasons, qrCodeBase64) {
     zipcode,
     town,
     datesortie,
-    heuresortie
+    heuresortie,
   } = profile;
   const releaseHours = String(heuresortie).substring(0, 2);
   const releaseMinutes = String(heuresortie).substring(3, 5);
@@ -160,7 +160,7 @@ export default async function getAttestation(profile, reasons, qrCodeBase64) {
     x: page1.getWidth() - 170,
     y: 155,
     width: 100,
-    height: 100
+    height: 100,
   });
 
   pdfDoc.addPage();
@@ -169,7 +169,7 @@ export default async function getAttestation(profile, reasons, qrCodeBase64) {
     x: 50,
     y: page2.getHeight() - 350,
     width: 300,
-    height: 300
+    height: 300,
   });
 
   return await pdfDoc.saveAsBase64();

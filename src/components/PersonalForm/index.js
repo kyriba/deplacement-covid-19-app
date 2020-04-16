@@ -3,8 +3,7 @@ import React from "react";
 import { StyleSheet, Text, StatusBar } from "react-native";
 import { Button, Text as ElementText } from "react-native-elements";
 import { useAllCheckboxes, useCheckbox, useInputsFabric } from "./utils";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function PersonalForm({ navigation }) {
   const useInputField = useInputsFabric();
@@ -15,7 +14,10 @@ export default function PersonalForm({ navigation }) {
   const [birthPlace, inputBirthPlace] = useInputField(i18n.t("address"));
   const [address, inputAddress] = useInputField(i18n.t("city"));
   const [city, inputCity] = useInputField(i18n.t("postCode"));
-  const [postCode, inputpostCode] = useInputField(i18n.t("postCode"), "postalcode");
+  const [postCode, inputpostCode] = useInputField(
+    i18n.t("postCode"),
+    "postalcode"
+  );
 
   const [allChecked, addCheck, removeCheck] = useAllCheckboxes();
 
@@ -46,8 +48,11 @@ export default function PersonalForm({ navigation }) {
   };
 
   return (
-    <KeyboardAwareScrollView enableResetScrollToCoords={false} enableOnAndroid={true}>
-    <StatusBar  barStyle='dark-content' />
+    <KeyboardAwareScrollView
+      enableResetScrollToCoords={false}
+      enableOnAndroid={true}
+    >
+      <StatusBar barStyle="dark-content" />
       <ElementText style={styles.headerText}>
         {i18n.t("attestation")}:
       </ElementText>
@@ -68,8 +73,8 @@ export default function PersonalForm({ navigation }) {
         "famille",
         "sport",
         "judiciaire",
-        "missions"
-      ].map(label => {
+        "missions",
+      ].map((label) => {
         return useCheckbox(label, addCheck, removeCheck);
       })}
 
