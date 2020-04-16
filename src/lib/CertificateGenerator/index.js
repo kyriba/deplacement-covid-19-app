@@ -66,7 +66,7 @@ export function getQrCodeData(profile, reasons) {
     `Naissance: ${birthday} a ${lieunaissance}`,
     `Adresse: ${address} ${zipcode} ${town}`,
     `Sortie: ${datesortie} a ${releaseHours}h${releaseMinutes}`,
-    `Motifs: ${reasons}`,
+    `Motifs: ${reasons.join('-')}`,
   ].join("; ");
 }
 

@@ -35,9 +35,9 @@ export default function PersonalForm({ navigation }) {
       address: address,
       zipcode: postCode,
       town: city,
-      datesortie: `${date.getDate()}-${
-        date.getMonth() + 1
-      }-${date.getFullYear()}`,
+      datesortie: `${pad(date.getDate())}/${
+        pad(date.getMonth() + 1)
+      }/${date.getFullYear()}`,
       heuresortie: `${pad(date.getHours())}:${pad(date.getMinutes())}`,
     };
 
