@@ -6,6 +6,7 @@ import android.net.Uri;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import org.linusu.RNGetRandomValuesPackage;
 import com.horcrux.svg.SvgPackage;
 import com.maximegerbe.reactnative.sharefile.ShareFilePackage;
 import com.facebook.react.ReactNativeHost;
