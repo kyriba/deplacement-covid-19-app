@@ -131,7 +131,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.deplacement-covid-19"
+        applicationId "com.deplacementcovid19"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -182,8 +182,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-local-resource')
-    implementation project(':rn-fetch-blob')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
     addUnimodulesDependencies()

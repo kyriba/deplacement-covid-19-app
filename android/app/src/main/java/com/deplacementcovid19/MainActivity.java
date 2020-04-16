@@ -1,4 +1,4 @@
-package com.deplacement-covid-19;
+package com.deplacementcovid19;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

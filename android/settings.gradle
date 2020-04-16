@@ -1,10 +1,4 @@
-rootProject.name = 'deplacement-covid-19'
-include ':rn-qr-generator'
-project(':rn-qr-generator').projectDir = new File(rootProject.projectDir, '../node_modules/rn-qr-generator/android')
-include ':react-native-local-resource'
-project(':react-native-local-resource').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-local-resource/android')
-include ':rn-fetch-blob'
-project(':rn-fetch-blob').projectDir = new File(rootProject.projectDir, '../node_modules/rn-fetch-blob/android')
+rootProject.name = 'deplacementCOVID19'
 
 apply from: '../node_modules/react-native-unimodules/gradle.groovy'
 includeUnimodulesProjects()

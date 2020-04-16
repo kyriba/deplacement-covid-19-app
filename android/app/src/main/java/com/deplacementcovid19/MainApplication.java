@@ -1,4 +1,4 @@
-package com.deplacement-covid-19;
+package com.deplacementcovid19;
 
 import android.app.Application;
 import android.content.Context;
@@ -6,13 +6,11 @@ import android.net.Uri;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import com.igorbelyayev.rnlocalresource.RNLocalResourcePackage;
-import com.RNFetchBlob.RNFetchBlobPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.deplacement-covid-19.generated.BasePackageList;
+import com.deplacementcovid19.generated.BasePackageList;
 
 import org.unimodules.adapters.react.ReactAdapterPackage;
 import org.unimodules.adapters.react.ModuleRegistryAdapter;
