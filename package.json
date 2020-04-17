@@ -5,7 +5,8 @@
     "ios": "react-native run-ios --port 9988",
     "web": "expo start --web",
     "start": "react-native start --port 9988",
-    "test": "jest"
+    "test": "jest",
+    "prettify": "prettier --write \"**/*.js\""
   },
   "dependencies": {
     "@babel/runtime": "^7.9.2",
@@ -50,6 +51,7 @@
     "@babel/core": "~7.9.0",
     "babel-jest": "~25.2.6",
     "jest": "~25.2.6",
+    "prettier": "1.18.2",
     "jetifier": "^1.6.5",
     "mem": ">=4.0.0",
     "react-test-renderer": "~16.9.0"

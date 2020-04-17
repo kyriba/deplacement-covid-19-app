@@ -1,19 +1,20 @@
 import { PDFDocument, StandardFonts } from "pdf-lib";
 import certificateTemplateBase64 from "./certificateTemplateBase64";
 import base64 from "react-native-base64";
+import pad from "../../utils/pad";
 
-function base64ToArrayBuffer(base64In) {
-  var binary_string = base64.decode(base64In);
-  var len = binary_string.length;
-  var bytes = new Uint8Array(len);
+const base64ToArrayBuffer = base64In => {
+  const binary_string = base64.decode(base64In);
+  const len = binary_string.length;
+  const bytes = new Uint8Array(len);
 
-  for (var i = 0; i < len; i++) {
+  for (let i = 0; i < len; i++) {
     bytes[i] = binary_string.charCodeAt(i);
   }
   return bytes.buffer;
-}
+};
 
-function idealFontSize(font, text, maxWidth, minSize, defaultSize) {
+const idealFontSize = (font, text, maxWidth, minSize, defaultSize) => {
   let currentSize = defaultSize;
   let textWidth = font.widthOfTextAtSize(text, defaultSize);
 
@@ -22,21 +23,17 @@ function idealFontSize(font, text, maxWidth, minSize, defaultSize) {
   }
 
   return textWidth > maxWidth ? null : currentSize;
-}
+};
 
-function pad(str) {
-  return String(str).padStart(2, "0");
-}
+let year, month, day;
 
-var year, month, day;
-
-function setDateNow(date) {
+const setDateNow = date => {
   year = date.getFullYear();
   month = pad(date.getMonth() + 1); // Les mois commencent à 0
   day = pad(date.getDate());
-}
+};
 
-export function getQrCodeData(profile, reasons) {
+const getQrCodeData = (profile, reasons) => {
   const generatedDate = new Date();
   setDateNow(generatedDate);
   const creationDate = `${day}/${month}/${year}`;
@@ -66,11 +63,11 @@ export function getQrCodeData(profile, reasons) {
     `Naissance: ${birthday} a ${lieunaissance}`,
     `Adresse: ${address} ${zipcode} ${town}`,
     `Sortie: ${datesortie} a ${releaseHours}h${releaseMinutes}`,
-    `Motifs: ${reasons.join('-')}`,
+    `Motifs: ${reasons.join("-")}`,
   ].join("; ");
-}
+};
 
-export default async function getAttestation(profile, reasons, qrCodeBase64) {
+const getAttestation = async (profile, reasons, qrCodeBase64) => {
   const generatedDate = new Date();
   setDateNow(generatedDate);
   const creationDate = `${day}/${month}/${year}`;
@@ -134,7 +131,7 @@ export default async function getAttestation(profile, reasons, qrCodeBase64) {
   if (!locationSize) {
     alert(
       "Le nom de la ville risque de ne pas être affiché correctement en raison de sa longueur. " +
-        'Essayez d\'utiliser des abréviations ("Saint" en "St." par exemple) quand cela est possible.'
+        'Essayez d\'utiliser des abréviations ("Saint" en "St." par exemple) quand cela est possible.',
     );
     locationSize = 7;
   }
@@ -173,4 +170,7 @@ export default async function getAttestation(profile, reasons, qrCodeBase64) {
   });
 
   return await pdfDoc.saveAsBase64();
-}
+};
+
+export { getQrCodeData };
+export default getAttestation;

@@ -1,7 +1,6 @@
-import i18n from "i18n-js";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TouchableWithoutFeedback } from "react-native";
-import { Card, CheckBox, Input as TextInput } from "react-native-elements";
+import { StyleSheet, View } from "react-native";
+import { Input as TextInput } from "react-native-elements";
 
 import { MaskService } from "react-native-masked-text";
 
@@ -20,11 +19,7 @@ const useRefsStore = () => {
 export const useInputsFabric = () => {
   const [inputRefs, addInputRef] = useRefsStore();
 
-  const useInputField = (
-    nextField,
-    fieldType = "default",
-    inputMask = "default"
-  ) => {
+  return (nextField, fieldType = "default", inputMask = "default") => {
     const initialState = "";
     const [value, onInputChange] = useState(initialState);
     const [error, setError] = useState(initialState);
@@ -36,7 +31,7 @@ export const useInputsFabric = () => {
 
     switch (fieldType) {
       case "datetime":
-        inputChangeWithMask = (e) => {
+        inputChangeWithMask = e => {
           const maskedValue = MaskService.toMask("datetime", e, {
             format: "DD/MM/YYYY",
           });
@@ -46,7 +41,7 @@ export const useInputsFabric = () => {
         returnKeyType = "done";
         break;
       case "postalcode":
-        inputChangeWithMask = (e) => {
+        inputChangeWithMask = e => {
           const maskedValue = MaskService.toMask("custom", e, {
             mask: "99999",
           });
@@ -76,7 +71,7 @@ export const useInputsFabric = () => {
             onSubmitEditing={() => {
               inputRefs[nextField].focus();
             }}
-            ref={(input) => {
+            ref={input => {
               addInputRef(name, input);
             }}
             errorMessage={error}
@@ -87,47 +82,17 @@ export const useInputsFabric = () => {
     };
     return [value, input];
   };
-
-  return useInputField;
-};
-
-export const useCheckbox = (label, addCheck, removeCheck) => {
-  const [isSelected, setSelection] = useState(false);
-  const handleSelection = () => {
-    setSelection(!isSelected);
-    if (!isSelected) {
-      addCheck(label);
-    } else {
-      removeCheck(label);
-    }
-  };
-
-  return (
-    <TouchableWithoutFeedback key={`touch-${label}`} onPress={handleSelection} >
-      <Card key={`card-${label}`} containerStyle={{backgroundColor:'whitesmoke'}}>
-        <View key={`view-${label}`}>
-          <Text style={styles.text}>{i18n.t(label)}</Text>
-          <CheckBox
-            checked={isSelected}
-            style={styles.checkbox}
-            key={`checkbox-${label}`}
-            onPress={handleSelection}
-          />
-        </View>
-      </Card>
-    </TouchableWithoutFeedback>
-  );
 };
 
 export const useAllCheckboxes = () => {
   const [allChecked, setAllChecked] = useState([]);
 
-  const addCheck = (label) => {
+  const addCheck = label => {
     setAllChecked(allChecked.concat(label));
   };
 
-  const removeCheck = (label) => {
-    setAllChecked(allChecked.filter((item) => item !== label));
+  const removeCheck = label => {
+    setAllChecked(allChecked.filter(item => item !== label));
   };
 
   return [allChecked, addCheck, removeCheck];
