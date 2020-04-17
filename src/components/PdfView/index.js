@@ -1,4 +1,3 @@
-import 'react-native-get-random-values'
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import PDFReader from "rn-pdf-reader-js";
@@ -18,8 +17,6 @@ export default function PdfView({ profile, reasons, qrCodeBase64, setPdf }) {
   }, [profile, reasons, qrCodeBase64]);
 
   const data = "data:application/pdf;base64," + pdfFile;
-  console.log("SEtting PDF", data.length);
-
   setPdf(pdfFile);
 
   if (pdfFile !== "") {
