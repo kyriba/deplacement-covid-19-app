@@ -42,14 +42,12 @@ More info [here](https://docs.expo.io/versions/latest/distribution/building-stan
 
 ### Screenshots
 
-#### iOS english version
 
-![Alt text](docs/screenshots/IMG_2955_iphonexspacegrey_portrait.png "Form")
-
-![Alt text](docs/screenshots/IMG_2954_iphonexspacegrey_portrait.png "Reason")
-
-![Alt text](docs/screenshots/IMG_2953_iphonexspacegrey_portrait.png "Certificate")
-
+iOS French             |  Android English
+:-------------------------:|:-------------------------:
+![](docs/screenshots/ios/IMG_2979_iphonexspacegrey_portrait.png)  |  ![](docs/screenshots/android/Screenshot_1587119456_pixel_very_silver_portrait.png)
+![](docs/screenshots/ios/IMG_2980_iphonexspacegrey_portrait.png)  |  ![](docs/screenshots/android/Screenshot_1587119475_pixel_very_silver_portrait.png)
+![](docs/screenshots/ios/IMG_2981_iphonexspacegrey_portrait.png)  |  ![](docs/screenshots/android/Screenshot_1587119494_pixel_very_silver_portrait.png)
 
 ### Contribution
 
